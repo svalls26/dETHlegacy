@@ -57,4 +57,22 @@ contract DETH {
         );
     }
 
+    // OptimisticOracleV3 resolve callback.
+    function assertionResolvedCallback(bytes32 assertionId, bool assertedTruthfully) public {
+        require(msg.sender == address(oo));
+        // If the assertion was true, then the data assertion is resolved.
+        if (assertedTruthfully) {
+            //TODO
+        }
+        //     assertionsData[assertionId].resolved = true;
+        //     DataAssertion memory dataAssertion = assertionsData[assertionId];
+        //     emit DataAssertionResolved(dataAssertion.dataId, dataAssertion.data, dataAssertion.asserter, assertionId);
+        //     // Else delete the data assertion if it was false to save gas.
+        // } else delete assertionsData[assertionId];
+    }
+
+    // If assertion is disputed, do nothing and wait for resolution.
+    // This OptimisticOracleV3 callback function needs to be defined so the OOv3 doesn't revert when it tries to call it.
+    function assertionDisputedCallback(bytes32 assertionId) public {}
+
 }
