@@ -23,8 +23,11 @@ contract DETH {
         registration[id] = 1;
     }
 
+    function getMinimumBondForToken(address tokenAddress) public view returns (uint256){
+        return oo.getMinimumBond(address(tokenAddress));
+    }
 
-    function startClaim(uint256 id, uint256 ipfsHash, address tokenAddress) public payable{
+    function startClaimWithMinBond(uint256 id, uint256 ipfsHash, address tokenAddress) public payable{
         require (registration[id]!=0, "hashedId not registered");
 
         uint256 bond = oo.getMinimumBond(address(tokenAddress));
@@ -36,7 +39,7 @@ contract DETH {
             abi.encodePacked(
                 "CLAIM: File in IPFS hash 0x",
                 ClaimData.toUtf8Bytes(bytes32(ipfsHash)),
-                " proves the death of a person who fulfills the hash",
+                " proves the death of a person who fulfills the hash 0x",
                 ClaimData.toUtf8Bytes(bytes32(id)),
                 " with asserter: 0x",
                 ClaimData.toUtf8BytesAddress(msg.sender),
