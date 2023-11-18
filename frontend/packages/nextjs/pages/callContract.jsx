@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { ethers, AlchemyProvider } from 'ethers';
+import React, { useState } from 'react';
+import Web3 from 'web3';
 
 const contractAddress = '0x0307dA205e77078E723520f78fC875Dc351354e0';
 
@@ -199,32 +199,30 @@ const abi = [
   ];
 
 
-const provider = new AlchemyProvider("goerli", "p2xvejg4_DhkCGW_92rXRAC3-yUIaCvQ")
-const contract = new ethers.Contract(contractAddress, abi, provider);
-
-
-function App() {
+  const providerUrl = 'https://eth-goerli.g.alchemy.com/v2/p2xvejg4_DhkCGW_92rXRAC3-yUIaCvQ';
+  const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
+  const erc20 = new web3.eth.Contract(abi, contractAddress);
+  
+  function App() {
     const [result, setResult] = useState(null);
   
-    useEffect(() => {
-      async function callContract() {
-        try {
-          console.log('Calling smart contract...');
+    const callContract = async () => {
+      try {
   
-          // Use callStatic method for read-only functions
-          contract.testCall();
+        console.log('Calling smart contract...');
+        console.log(erc20.options.address);
   
-          console.log('Smart contract call result:', result);
+        // Call the testCall function
+        const test = await erc20.methods.testCall().call();
+        console.log('Test call result:', test);
   
-          setResult(result);
-        } catch (error) {
-          console.error('Error calling smart contract:', error.message);
-        }
+        // Example of sending a transaction
+        // const transaction = await erc20.methods.startClaimWithMinBond(id, ipfsHash, tokenAddress).send({ value });
+        // console.log('Transaction mined:', transaction.transactionHash);
+      } catch (error) {
+        console.error('Error calling smart contract:', error.message);
       }
-  
-      // Call the function when the component mounts
-      callContract();
-    }, []); // The empty dependency array ensures that the effect runs only once when the component mounts
+    };
   
     return (
       <div className="App">
@@ -234,6 +232,7 @@ function App() {
         ) : (
           <p>Loading...</p>
         )}
+        <button className='btn btn-primary' onClick={callContract}>Call Contract</button>
       </div>
     );
   }
