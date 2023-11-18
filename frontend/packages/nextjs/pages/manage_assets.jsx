@@ -203,100 +203,93 @@ const providerUrl = 'https://eth-goerli.g.alchemy.com/v2/p2xvejg4_DhkCGW_92rXRAC
 const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
 const erc20 = new web3.eth.Contract(abi, contractAddress);
 
-function App() {
-const [loading, setLoading] = useState(false);
-const [web3Instance, setWeb3Instance] = useState(null);
-const [account, setAccount] = useState(null);
-const [transactionReceipt, setTransactionReceipt] = useState(null);
 
-useEffect(() => {
+
+function App() {
+  const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [web3Instance, setWeb3Instance] = useState(null);
+  const [account, setAccount] = useState(null);
+  const [transactionStatus, setTransactionStatus] = useState(null);
+
+  useEffect(() => {
     const initWeb3 = async () => {
-    if (window.ethereum) {
+      if (window.ethereum) {
         const web3Instance = new Web3(window.ethereum);
         setWeb3Instance(web3Instance);
 
         try {
-        // Request account access if needed
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const accounts = await web3Instance.eth.getAccounts();
-        setAccount(accounts[0]);
+          // Request account access if needed
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          const accounts = await web3Instance.eth.getAccounts();
+          setAccount(accounts[0]);
         } catch (error) {
-        console.error('Error fetching accounts:', error);
+          console.error('Error fetching accounts:', error);
         }
-    }
+      }
     };
 
     initWeb3();
-}, []);
+  }, []);
 
-const callContract = async () => {
+  const callContract = async () => {
     try {
-    setLoading(true);
+      setLoading(true);
 
-    console.log('Calling smart contract...');
-    console.log(contractAddress);
+      console.log('Calling smart contract...');
+      console.log(contractAddress);
 
-    // Get the parameter for initWill
-    const id = 1245; // Replace with the actual value
+      // Get the parameters for startClaimWithMinBond
+      const id = 134; // Replace with the actual value
 
-    // Call the initWill function
-    const transaction = await web3Instance.eth.sendTransaction({
+      // Call the startClaimWithMinBond function
+      const transaction = await web3Instance.eth.sendTransaction({
         to: contractAddress,
         from: account,
         data: erc20.methods.initWill(id).encodeABI(),
-    });
+      });
 
-    // Wait for the transaction to be mined
-    console.log('Transaction Hash');
-    console.log(transaction.transactionHash);
-    const receipt = await web3Instance.eth.getTransactionReceipt(transaction.transactionHash);
-    setTransactionReceipt(receipt); // Set transaction receipt to state
+      // Wait for the transaction to be mined
+      const receipt = await web3Instance.eth.getTransactionReceipt(transaction.transactionHash);
 
-    console.log('Transaction mined:', transaction.transactionHash);
-    console.log('Transaction receipt:', receipt);
+      console.log('Transaction receipt:', receipt);
 
-    // Check if the transaction was successful
-    if (receipt.status) {
-        console.log(receipt.status);
-        console.log('Transaction successful!');
-        // You can update your component's state or perform other actions based on success
-    } else {
-        console.error('Transaction failed:', receipt);
-        // Handle failed transactions here
-    }
+      // Check if the transaction was successful
+      if (receipt && receipt.status) {
+        setTransactionStatus('Transaction successful!');
+      } else {
+        setTransactionStatus('Transaction failed!');
+      }
     } catch (error) {
-    console.error('Error calling smart contract:', error.message);
+      console.error('Error calling smart contract:', error.message);
+      setTransactionStatus('Transaction failed!');
     } finally {
-    setLoading(false);
+      setLoading(false);
     }
-};
+  };
 
-return (
+  return (
     <div className="App">
-    <h1>Ethereum Smart Contract Interaction</h1>
-    {loading ? (
+      <h1>Ethereum Smart Contract Interaction</h1>
+      {loading ? (
         <p>Loading...</p>
-    ) : (
+      ) : (
         <div>
-        {transactionReceipt && ( // Display transaction details when receipt is available
-            <div>
-            <p>Transaction sucessful!</p>
-            <p>Transaction Hash: {transactionReceipt.transactionHash}</p>
-            {/* Add more details as needed */}
-            </div>
-        )}
-        {result !== null ? (
+          {result !== null ? (
             <p>Result from smart contract: {result}</p>
-        ) : (
-            <p>Click the button to create your Will.</p>
-        )}
+          ) : (
+            <div>
+              {transactionStatus && <p>{transactionStatus}</p>}
+              <p>Your will has being created sucessfully.</p>
+            </div>
+          )}
         </div>
-    )}
-    <button className="btn btn-primary" onClick={callContract}>
-        Create Will
-    </button>
+      )}
+      <button className="btn btn-primary" onClick={callContract}>
+        Claim Will
+      </button>
     </div>
-);
+  );
 }
 
 export default App;
