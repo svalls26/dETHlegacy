@@ -24,7 +24,6 @@
     "next:lint": "yarn workspace @se-2/nextjs lint",
     "next:format": "yarn workspace @se-2/nextjs format",
     "next:check-types": "yarn workspace @se-2/nextjs check-types",
-    "postinstall": "husky install",
     "precommit": "lint-staged",
     "vercel": "yarn workspace @se-2/nextjs vercel",
     "vercel:yolo": "yarn workspace @se-2/nextjs vercel:yolo"
@@ -39,6 +38,7 @@
   },
   "dependencies": {
     "@web3modal/wagmi": "^3.3.2",
+    "ipfs-http-client": "^60.0.1",
     "viem": "^1.19.3",
     "wagmi": "^1.4.7"
   }
