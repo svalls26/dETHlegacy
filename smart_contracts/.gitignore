@@ -14,5 +14,3 @@ docs/
 .env
 
 node_modules/
-.yarn/
-.yarnrc.yml
