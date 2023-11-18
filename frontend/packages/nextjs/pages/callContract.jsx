@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Web3 from 'web3';
 
 const contractAddress = '0x0307dA205e77078E723520f78fC875Dc351354e0';
@@ -203,36 +203,81 @@ const abi = [
   const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
   const erc20 = new web3.eth.Contract(abi, contractAddress);
   
+
+
   function App() {
     const [result, setResult] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [web3, setWeb3] = useState(null);
+    const [account, setAccount] = useState(null);
+  
+    useEffect(() => {
+      const initWeb3 = async () => {
+        if (window.ethereum) {
+          const web3Instance = new Web3(window.ethereum);
+          setWeb3(web3Instance);
+  
+          try {
+            // Request account access if needed
+            await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const accounts = await web3Instance.eth.getAccounts();
+            setAccount(accounts[0]);
+          } catch (error) {
+            console.error('Error fetching accounts:', error);
+          }
+        }
+      };
+  
+      initWeb3();
+    }, []);
   
     const callContract = async () => {
       try {
+        setLoading(true);
   
         console.log('Calling smart contract...');
-        console.log(erc20.options.address);
+        console.log(contractAddress);
   
-        // Call the testCall function
-        const test = await erc20.methods.testCall().call();
-        console.log('Test call result:', test);
+        // Get the parameters for startClaimWithMinBond
+        const id = 123; // Replace with the actual value
+        const ipfsHash = 456; // Replace with the actual value
+        const tokenAddress = '0x326C977E6efc84E512bB9C30f76E30c160eD06FB'; // Replace with the actual value
   
-        // Example of sending a transaction
-        // const transaction = await erc20.methods.startClaimWithMinBond(id, ipfsHash, tokenAddress).send({ value });
-        // console.log('Transaction mined:', transaction.transactionHash);
+        // Call the startClaimWithMinBond function
+        const transaction = await web3.eth.sendTransaction({
+          to: contractAddress,
+          from: account,
+          data: erc20.methods.startClaimWithMinBond(id, ipfsHash, tokenAddress).encodeABI(),
+        });
+  
+        // Wait for the transaction to be mined
+        await web3.eth.waitForTransactionReceipt(transaction.transactionHash);
+  
+        console.log('Transaction mined:', transaction.transactionHash);
       } catch (error) {
         console.error('Error calling smart contract:', error.message);
+      } finally {
+        setLoading(false);
       }
     };
   
     return (
       <div className="App">
         <h1>Ethereum Smart Contract Interaction</h1>
-        {result !== null ? (
-          <p>Result from smart contract: {result}</p>
-        ) : (
+        {loading ? (
           <p>Loading...</p>
+        ) : (
+          <div>
+            {result !== null ? (
+              <p>Result from smart contract: {result}</p>
+            ) : (
+              <p>Click the button to call the contract.</p>
+            )}
+          </div>
         )}
-        <button className='btn btn-primary' onClick={callContract}>Call Contract</button>
+        <button className="btn btn-primary" onClick={callContract}>
+          Call Contract
+        </button>
       </div>
     );
   }
