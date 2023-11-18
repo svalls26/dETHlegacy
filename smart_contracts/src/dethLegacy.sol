@@ -9,13 +9,20 @@ import "@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3In
 contract DETH {
 
     mapping(uint256 => uint256) public registration;
-    
+    mapping(uint256 => bool) public claims;
+
     bytes32 public immutable defaultIdentifier;
     OptimisticOracleV3Interface oo;
+
+    event DataAsserted(uint256 id, uint256 ipfsHash, address indexed asserter, bytes32 assertionId);
 
     constructor(address _optimisticOracleV3){
         oo = OptimisticOracleV3Interface(_optimisticOracleV3);
         defaultIdentifier = oo.defaultIdentifier();
+    }
+
+    function testCall() public returns (uint256){
+        return 42;
     }
 
     // TODO bytes32
@@ -33,6 +40,8 @@ contract DETH {
         uint256 bond = oo.getMinimumBond(address(tokenAddress));
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), bond);
         IERC20(tokenAddress).approve(address(oo), bond);
+
+        claims[id] = true;
 
         //TODO real ids and hashes
         bytes32 assertionId = oo.assertTruth(
@@ -52,12 +61,14 @@ contract DETH {
             msg.sender, //asserter
             address(this), //callbackRecipient
             address(0), // escalationManager.
-            9999999, //liveness
+            60*60*24*7, //liveness
             IERC20(tokenAddress), //ERC20 address for bond
             bond, //amount
             defaultIdentifier, //defaultIdentifier
             bytes32(0) // domainId.
         );
+
+        emit DataAsserted(id, ipfsHash, asserter, assertionId);
     }
 
     // OptimisticOracleV3 resolve callback.
