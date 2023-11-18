@@ -1,7 +1,7 @@
 "use client";
 
 import { createWeb3Modal, defaultWagmiConfig } from "@web3modal/wagmi/react";
-import { arbitrum, mainnet } from "viem/chains";
+import { goerli, mainnet } from "viem/chains";
 import { WagmiConfig } from "wagmi";
 
 // 1. Get projectId
@@ -15,7 +15,7 @@ const metadata = {
   icons: ["https://avatars.githubusercontent.com/u/37784886"],
 };
 
-const chains = [mainnet, arbitrum];
+const chains = [mainnet, goerli];
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 
 // 3. Create modal
