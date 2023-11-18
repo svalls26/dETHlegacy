@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Web3Modal } from "../context/Web3Modal";
-import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
+// import { RainbowKitProvider, darkTheme, lightTheme } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
@@ -8,11 +8,11 @@ import { useDarkMode } from "usehooks-ts";
 import { WagmiConfig } from "wagmi";
 import { Footer } from "~~/components/Footer";
 import { Header } from "~~/components/Header";
-import { BlockieAvatar } from "~~/components/scaffold-eth";
+// import { BlockieAvatar } from "~~/components/scaffold-eth";
 import { useNativeCurrencyPrice } from "~~/hooks/scaffold-eth";
 import { useGlobalState } from "~~/services/store/store";
 import { wagmiConfig } from "~~/services/web3/wagmiConfig";
-import { appChains } from "~~/services/web3/wagmiConnectors";
+// import { appChains } from "~~/services/web3/wagmiConnectors";
 import "~~/styles/globals.css";
 
 const ScaffoldEthApp = ({ Component, pageProps, children }) => {
@@ -34,13 +34,8 @@ const ScaffoldEthApp = ({ Component, pageProps, children }) => {
 
   return (
     <WagmiConfig config={wagmiConfig}>
-      <Web3Modal>{children}</Web3Modal>
-      <NextNProgress />
-      <RainbowKitProvider
-        chains={appChains.chains}
-        avatar={BlockieAvatar}
-        theme={isDarkTheme ? darkTheme() : lightTheme()}
-      >
+      <Web3Modal>
+        <NextNProgress />
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="relative flex flex-col flex-1">
@@ -49,8 +44,13 @@ const ScaffoldEthApp = ({ Component, pageProps, children }) => {
           <Footer />
         </div>
         <Toaster />
-      </RainbowKitProvider>
+      </Web3Modal>
     </WagmiConfig>
+    // <RainbowKitProvider
+    //   chains={appChains.chains}
+    //   avatar={BlockieAvatar}
+    //   theme={isDarkTheme ? darkTheme() : lightTheme()}
+    // ></RainbowKitProvider>
   );
 };
 
