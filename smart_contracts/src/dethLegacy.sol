@@ -9,7 +9,9 @@ import "@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3In
 contract DETH {
 
     mapping(uint256 => uint256) public registration;
-    mapping(uint256 => bool) public claims;
+    mapping(uint256 => bytes32) public claims;
+    mapping(uint256 => uint256) public verifiedClaims;
+    mapping(bytes32 => uint256) public claimsAssertionIdToId;
 
     bytes32 public immutable defaultIdentifier;
     OptimisticOracleV3Interface oo;
@@ -21,7 +23,7 @@ contract DETH {
         defaultIdentifier = oo.defaultIdentifier();
     }
 
-    function testCall() public returns (uint256){
+    function testCall() public pure returns (uint256){
         return 42;
     }
 
@@ -40,8 +42,6 @@ contract DETH {
         uint256 bond = oo.getMinimumBond(address(tokenAddress));
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), bond);
         IERC20(tokenAddress).approve(address(oo), bond);
-
-        claims[id] = true;
 
         //TODO real ids and hashes
         bytes32 assertionId = oo.assertTruth(
@@ -68,7 +68,10 @@ contract DETH {
             bytes32(0) // domainId.
         );
 
-        emit DataAsserted(id, ipfsHash, asserter, assertionId);
+        claims[id] = assertionId;
+        claimsAssertionIdToId[assertionId] = id;
+
+        emit DataAsserted(id, ipfsHash, msg.sender, assertionId);
     }
 
     // OptimisticOracleV3 resolve callback.
@@ -76,8 +79,11 @@ contract DETH {
         require(msg.sender == address(oo));
         // If the assertion was true, then the data assertion is resolved.
         if (assertedTruthfully) {
-            //TODO
+            verifiedClaims[claimsAssertionIdToId[assertionId]] = 1;
         }
+
+        // SPLIT FUNDS
+
         //     assertionsData[assertionId].resolved = true;
         //     DataAssertion memory dataAssertion = assertionsData[assertionId];
         //     emit DataAssertionResolved(dataAssertion.dataId, dataAssertion.data, dataAssertion.asserter, assertionId);

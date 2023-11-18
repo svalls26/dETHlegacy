@@ -55,8 +55,32 @@ export ASSERTION_TX=$(cast send --json \
 	| jq -r .transactionHash)
 ```
 
+Check check which is the CLAIM_ID:
 ```
 cast call $DETH_CONTRACT "claims(uint256)" 1
 ```
+
+We can check for this assertion_id in the oracle V3:
+```
+cast call $OOV3_ADDRESS "assertions(bytes32)" 0xfd841c6e6b287b302620bf4fedc2eea8febb1d964e210493a9ceaf2be2d088fb
+```
+
+We need to let time pass before settling the assertion:
+```
+cast rpc evm_increaseTime 99999999999
+cast rpc evm_mine
+```
+
+```
+cast send --mnemonic "$MNEMONIC" $OOV3_ADDRESS "settleAssertion(bytes32)" 0xfd841c6e6b287b302620bf4fedc2eea8febb1d964e210493a9ceaf2be2d088fb
+```
+
+And check in our contract that it has passed:
+```
+cast call $DETH_CONTRACT "verifiedClaims(uint256)" 1
+```
+
+
+
 
 
