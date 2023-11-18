@@ -1,0 +1,302 @@
+import React, { useState, useEffect } from 'react';
+import Web3 from 'web3';
+
+const contractAddress = '0x0307dA205e77078E723520f78fC875Dc351354e0';
+
+const abi = [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_optimisticOracleV3",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "ipfsHash",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asserter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DataAsserted",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "assertionDisputedCallback",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bool",
+          "name": "assertedTruthfully",
+          "type": "bool"
+        }
+      ],
+      "name": "assertionResolvedCallback",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "claims",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "defaultIdentifier",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "getMinimumBondForToken",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "name": "initWill",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "registration",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "ipfsHash",
+          "type": "uint256"
+        },
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        }
+      ],
+      "name": "startClaimWithMinBond",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "testCall",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
+
+
+const providerUrl = 'https://eth-goerli.g.alchemy.com/v2/p2xvejg4_DhkCGW_92rXRAC3-yUIaCvQ';
+const web3 = new Web3(new Web3.providers.HttpProvider(providerUrl));
+const erc20 = new web3.eth.Contract(abi, contractAddress);
+
+function App() {
+const [loading, setLoading] = useState(false);
+const [web3Instance, setWeb3Instance] = useState(null);
+const [account, setAccount] = useState(null);
+const [transactionReceipt, setTransactionReceipt] = useState(null);
+
+useEffect(() => {
+    const initWeb3 = async () => {
+    if (window.ethereum) {
+        const web3Instance = new Web3(window.ethereum);
+        setWeb3Instance(web3Instance);
+
+        try {
+        // Request account access if needed
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const accounts = await web3Instance.eth.getAccounts();
+        setAccount(accounts[0]);
+        } catch (error) {
+        console.error('Error fetching accounts:', error);
+        }
+    }
+    };
+
+    initWeb3();
+}, []);
+
+const callContract = async () => {
+    try {
+    setLoading(true);
+
+    console.log('Calling smart contract...');
+    console.log(contractAddress);
+
+    // Get the parameter for initWill
+    const id = 1245; // Replace with the actual value
+
+    // Call the initWill function
+    const transaction = await web3Instance.eth.sendTransaction({
+        to: contractAddress,
+        from: account,
+        data: erc20.methods.initWill(id).encodeABI(),
+    });
+
+    // Wait for the transaction to be mined
+    console.log('Transaction Hash');
+    console.log(transaction.transactionHash);
+    const receipt = await web3Instance.eth.getTransactionReceipt(transaction.transactionHash);
+    setTransactionReceipt(receipt); // Set transaction receipt to state
+
+    console.log('Transaction mined:', transaction.transactionHash);
+    console.log('Transaction receipt:', receipt);
+
+    // Check if the transaction was successful
+    if (receipt.status) {
+        console.log(receipt.status);
+        console.log('Transaction successful!');
+        // You can update your component's state or perform other actions based on success
+    } else {
+        console.error('Transaction failed:', receipt);
+        // Handle failed transactions here
+    }
+    } catch (error) {
+    console.error('Error calling smart contract:', error.message);
+    } finally {
+    setLoading(false);
+    }
+};
+
+return (
+    <div className="App">
+    <h1>Ethereum Smart Contract Interaction</h1>
+    {loading ? (
+        <p>Loading...</p>
+    ) : (
+        <div>
+        {transactionReceipt && ( // Display transaction details when receipt is available
+            <div>
+            <p>Transaction sucessful!</p>
+            <p>Transaction Hash: {transactionReceipt.transactionHash}</p>
+            {/* Add more details as needed */}
+            </div>
+        )}
+        {result !== null ? (
+            <p>Result from smart contract: {result}</p>
+        ) : (
+            <p>Click the button to create your Will.</p>
+        )}
+        </div>
+    )}
+    <button className="btn btn-primary" onClick={callContract}>
+        Create Will
+    </button>
+    </div>
+);
+}
+
+export default App;
