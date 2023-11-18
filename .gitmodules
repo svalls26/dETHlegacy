@@ -4,3 +4,6 @@
 [submodule "smart_contracts/lib/openzeppelin-contracts"]
 	path = smart_contracts/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "smart_contracts/lib/safe-contracts"]
+	path = smart_contracts/lib/safe-contracts
+	url = https://github.com/safe-global/safe-contracts
