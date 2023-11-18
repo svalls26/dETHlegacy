@@ -19,7 +19,7 @@ const ScaffoldEthApp = ({ Component, pageProps, children }) => {
   const price = useNativeCurrencyPrice();
   const setNativeCurrencyPrice = useGlobalState(state => state.setNativeCurrencyPrice);
   // This variable is required for initial client side rendering of correct theme for RainbowKit
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
   const { isDarkMode } = useDarkMode();
 
   useEffect(() => {
