@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { NextPage } from "next";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import { CloudArrowUpIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "~~/components/MetaHeader";
 
 const Home: NextPage = () => {
@@ -21,14 +21,16 @@ const Home: NextPage = () => {
           <div className="flex w-full">
             <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
               {/* <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl"> */}
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <button className="btn btn-accent btn-sm mt-3">Manage Assets</button>
+              <PencilSquareIcon className="h-8 w-8 fill-secondary" />
+              <Link href="/manage">
+                <button className="btn btn-accent btn-sm mt-3">Manage Assets</button>
+              </Link>
               {/* </div> */}
             </div>
             <div className="divider lg:divider-horizontal">OR</div>
             <div className="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">
               {/* <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl"> */}
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
+              <CloudArrowUpIcon className="h-8 w-8 fill-secondary" />
               <Link href="/upload">
                 <button className="btn btn-accent btn-sm mt-3">Upload Death Certificate</button>
               </Link>
