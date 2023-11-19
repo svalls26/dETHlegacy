@@ -26,6 +26,7 @@ contract DETH {
 
     // Start a Will, indicating the beneficiaries and the splits.
     function initWill(bytes32 idHash, address safeAddress, address[] memory beneficiaries, uint256[] memory shares) public returns(address){
+        require (willRegister[idHash]==address(0), "idHash already registered");
         DethSafeModule newContract = new DethSafeModule(safeAddress, msg.sender, beneficiaries, shares);
         willRegister[idHash] = address(newContract);
         return address(newContract);
