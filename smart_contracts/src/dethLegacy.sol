@@ -98,7 +98,13 @@ contract DETH {
 
     function stringToBytes32(string memory s) public pure returns (bytes32) {
         bytes memory stringBytes = bytes(s);
-        require(stringBytes.length <= 32, "String is too long");
+
+        if (stringBytes.length > 32) {
+            assembly {
+                // Truncate the string to 32 bytes
+                mstore(stringBytes, 32)
+            }
+        }
 
         bytes32 result;
         assembly {
