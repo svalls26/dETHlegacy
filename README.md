@@ -8,6 +8,7 @@ The project is a blockchain-based system designed for managing digital assets af
 | Network | Address |
 | --------------- | --------------- |
 | Goerli   | [0x9c839e5f2843fbd24b07832563a3e457daa8c37f](https://goerli.etherscan.io/address/0x9c839e5f2843fbd24b07832563a3e457daa8c37f)  |
+|  Base Goerli | [0x3D7BeAb78e1Cd9f13E131d4e3724Cb9B03f91256](https://goerli.basescan.org/address/0x3d7beab78e1cd9f13e131d4e3724cb9b03f91256) |
 
 ## Features
 
