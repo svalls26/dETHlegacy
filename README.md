@@ -8,20 +8,13 @@ The project is a blockchain-based system designed for managing digital assets af
 - Secure Hash Creation Using Personal Info 
 - Contract Signing with Multi-Signature (SAFE)
 - Verification Process & Fees (UMA)
-- Death Certificate Storage (Filecoin and IPFS)
+- Death Certificate Storage (IPFS)
+- Donations (UNICEF)
 
 ## Technologies Used
 
-Blockchain (Gnosis, Ethereum)
+Ethereum
 WalletConnect
 UMA
-Filecoin and IPFS
+IPFS
 SAFE
-
-## Installation and Setup
-
-## Usage
-
-## Contributing
-
-## License
