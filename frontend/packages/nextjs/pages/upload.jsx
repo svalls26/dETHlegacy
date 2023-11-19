@@ -5,7 +5,7 @@ import Link from "next/link";
 import Web3 from 'web3';
 
 //Call Smart Contract vars
-const contractAddress = '0x0307dA205e77078E723520f78fC875Dc351354e0';
+const contractAddress = '0x9c839e5f2843fbd24b07832563a3e457daa8c37f';
 const abi = [
   {
     "inputs": [
@@ -23,15 +23,15 @@ const abi = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "id",
-        "type": "uint256"
+        "type": "bytes32"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "ipfsHash",
-        "type": "uint256"
+        "type": "bytes32"
       },
       {
         "indexed": true,
@@ -83,17 +83,36 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "",
-        "type": "uint256"
+        "type": "bytes32"
       }
     ],
-    "name": "claims",
+    "name": "claimsAssertionIdToIdHash",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "bytes32",
         "name": "",
-        "type": "bool"
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "claimsIdHashToAssertionId",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -110,6 +129,37 @@ const abi = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "distributeETH",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "distributeTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -134,30 +184,45 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "safeAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "beneficiaries",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "shares",
+        "type": "uint256[]"
       }
     ],
     "name": "initWill",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "registration",
+    "inputs": [],
+    "name": "livenessOfAssertion",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "stateMutability": "view",
@@ -166,14 +231,14 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
       },
       {
-        "internalType": "uint256",
-        "name": "ipfsHash",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "ipfsLink",
+        "type": "string"
       },
       {
         "internalType": "address",
@@ -187,8 +252,33 @@ const abi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "testCall",
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "name": "stringToBytes32",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "verifiedClaims",
     "outputs": [
       {
         "internalType": "uint256",
@@ -196,7 +286,26 @@ const abi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "willRegister",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ];
@@ -284,29 +393,16 @@ function App() {
     try {
       setLoading(true);
 
-      console.log('Calling smart contract...');
-      console.log(contractAddress);
+      const tokenAddress = '0x07865c6E87B9F70255377e024ace6630C1Eaa37F';
 
-      // Get the parameters for startClaimWithMinBond
-      const ipfsHash_test = 123
-      console.log(id)
-      console.log(contractAddress)
-      console.log(ipfsHash_test)
-      const tokenAddress = '0x07865c6E87B9F70255377e024ace6630C1Eaa37F'; // Replace with the actual value
-
-      // Call the startClaimWithMinBond function
       const transaction = await web3Instance.eth.sendTransaction({
         to: contractAddress,
         from: account,
-        data: erc20.methods.startClaimWithMinBond(id, ipfsHash_test, tokenAddress).encodeABI(),
+        data: erc20.methods.startClaimWithMinBond(id, ipfsHash, tokenAddress).encodeABI(),
       });
 
-      // Wait for the transaction to be mined
       const receipt = await web3Instance.eth.getTransactionReceipt(transaction.transactionHash);
 
-      console.log('Transaction receipt:', receipt);
-
-      // Check if the transaction was successful
       if (receipt) {
         setTransactionStatus('Transaction successful! Your assets will arrive soon...');
       } else {
@@ -319,6 +415,7 @@ function App() {
       setLoading(false);
     }
   };
+
   return (
     <>
       <MetaHeader title="Upload" description="Upload death cert" />
@@ -334,7 +431,7 @@ function App() {
                   </h1>
                 </div>
                 <form onSubmit={onSubmitHandler}>
-                  <div className="flex flex-col items-center"> {/* Updated alignment here */}
+                  <div className="flex flex-col items-center">
                     <input
                       type="text"
                       value={textInputValue}
@@ -353,7 +450,6 @@ function App() {
                     </button>
                   </div>
                 </form>
-                {/* Display transaction status */}
                 {transactionStatus && (
                   <p className={`mt-3 ${transactionStatus.includes('failed') ? 'text-red-500' : 'text-green-500'}`}>
                     {transactionStatus}
@@ -362,7 +458,7 @@ function App() {
               </div>
             </div>
           ) : null}
-          <div className="bg-base-300 w-full mt-16 px-8 py-12 flex flex-col items-center"> {/* Updated alignment here */}
+          <div className="bg-base-300 w-full mt-16 px-8 py-12 flex flex-col items-center">
             {uploadedImages.map((image, index) => (
               <div key={image.cid.toString() + index} className="card w-96 bg-base-100 shadow-xl mb-4">
                 <figure className="px-10 pt-10">
@@ -379,11 +475,14 @@ function App() {
                       <button className="btn btn-primary">IPFS Link</button>
                     </Link>
                   </div>
-                  {/* Call Contract Button */}
                   {index === uploadedImages.length - 1 && (
                     <div className="card-actions mt-2">
-                      <button className="btn btn-primary" onClick={() => callContract(textInputValue, image.path)}>
-                        Call Contract
+                      <button
+                        className={`btn btn-primary ${loading ? 'btn-loading' : ''}`}
+                        onClick={() => callContract(textInputValue, image.path)}
+                        disabled={loading}
+                      >
+                        {loading ? 'Calling Contract...' : 'Call Contract'}
                       </button>
                     </div>
                   )}
@@ -394,8 +493,7 @@ function App() {
         </div>
       </div>
     </>
-  );  
+  );
 }
-
 
 export default App;
