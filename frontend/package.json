@@ -37,6 +37,10 @@
     "usehooks-ts@^2.7.2": "patch:usehooks-ts@npm:^2.7.2#./.yarn/patches/usehooks-ts-npm-2.7.2-fceffe0e43.patch"
   },
   "dependencies": {
+    "@safe-global/auth-kit": "^1.2.1",
+    "@web3auth/base": "4.6.0",
+    "@web3auth/modal": "4.6.2",
+    "@web3auth/openlogin-adapter": "4.6.0",
     "@web3modal/wagmi": "^3.3.2",
     "ethers": "^6.8.1",
     "ipfs-http-client": "^60.0.1",

@@ -6,7 +6,8 @@ import { FireIcon } from "@heroicons/react/24/outline";
 import { MetaHeader } from "~~/components/MetaHeader";
 import { AddressInput } from "~~/components/scaffold-eth";
 import { IntegerInput } from "~~/components/scaffold-eth";
-import { Address } from "~~/components/scaffold-eth";
+
+// import { Address } from "~~/components/scaffold-eth";
 
 const contractAddress = "0x9c839e5f2843fbd24b07832563a3e457daa8c37f";
 const abi = [
@@ -320,7 +321,7 @@ const erc20 = new web3.eth.Contract(abi, contractAddress);
 function App() {
   const [claim_address, setAddress] = useState("");
   const [txValue, setTxValue] = useState("");
-  const [result, setResult] = useState(null);
+  // const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [web3Instance, setWeb3Instance] = useState(null);
   const [account, setAccount] = useState(null);
@@ -328,7 +329,7 @@ function App() {
   const [textInputValue, setTextInputValue] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const [id_val, setIdValue] = useState("");
-  const [transactionList, setTransactionList] = useState([]);
+  // const [transactionList, setTransactionList] = useState([]);
   const { myAddress } = useAccount();
 
   const handleRadioChange = event => {
@@ -502,12 +503,8 @@ function App() {
                     <option disabled selected>
                       Select UNICEF benefactor
                     </option>
-                    <option>
-                      Climate Change (<Address address="0x34aA3F359A9D614239015126635CE7732c18fDF3" />)
-                    </option>
-                    <option>
-                      Cash Assistance (<Address address="0x6E56A976b0fB385f4549879FddD7F2A43C038232" />)
-                    </option>
+                    <option>Climate Change (0x34...Df3)</option>
+                    <option>Cash Assistance (0x6E...c32)</option>
                   </select>
                   <IntegerInput
                     value={txValue}
