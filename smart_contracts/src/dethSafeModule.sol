@@ -35,10 +35,12 @@ contract DethSafeModule{
         _; 
     }
 
-    constructor(address dethAddress, address[] memory beneficiaries, uint256[] memory shares){
+    constructor(address safeAddress, address dethAddress, address[] memory beneficiaries, uint256[] memory shares){
         _dethAddress = dethAddress;
         _beneficiaries = beneficiaries;
         _shares = shares;
+        _safeAddress = safeAddress;
+        _safe = SafeL2(payable(_safeAddress));
 
         require (_beneficiaries.length == _shares.length, "Arrays are not the same size");
         
@@ -47,19 +49,7 @@ contract DethSafeModule{
         }
     }
 
-    function _setSafeIfUnitialized(address safeAddress) internal {
-        if (safeAddress==address(0)){
-            _initSafe(safeAddress);
-        }
-    }
-
-    function _initSafe(address safeAddress) internal{
-        _safeAddress = safeAddress;
-        _safe = SafeL2(payable(_safeAddress));
-    }
-
-    function distributeETH(address safeAddress) public onlyDETH{
-        _setSafeIfUnitialized(safeAddress);
+    function distributeETH() public onlyDETH{
         uint256 initETH = address(_safeAddress).balance;
         for (uint i=0; i<_beneficiaries.length-1; i++){
             _transferETH(_beneficiaries[i], _shares[i] * initETH/_sumShares);
@@ -67,8 +57,7 @@ contract DethSafeModule{
         _transferETH(_beneficiaries[_beneficiaries.length], address(_safeAddress).balance);
     }
 
-    function distributeTokens(address safeAddress, address tokenAddress) public onlyDETH{
-        _setSafeIfUnitialized(safeAddress);
+    function distributeTokens(address tokenAddress) public onlyDETH{
         IERC20_2 token = IERC20_2(tokenAddress);
         uint256 initTokens = token.balanceOf(_safeAddress);
         for (uint i=0; i<_beneficiaries.length-1; i++){
