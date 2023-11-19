@@ -40,6 +40,7 @@
     "@web3modal/wagmi": "^3.3.2",
     "ethers": "^6.8.1",
     "ipfs-http-client": "^60.0.1",
+    "node-gyp": "^10.0.1",
     "viem": "^1.19.3",
     "wagmi": "^1.4.7",
     "web3": "^4.2.2"
