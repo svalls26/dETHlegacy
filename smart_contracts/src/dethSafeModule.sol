@@ -30,6 +30,7 @@ contract DethSafeModule{
     address _dethAddress;
     uint256 _sumShares;
 
+    // Modifier that allows only the dETH main contract to interact with certain functions
     modifier onlyDETH() {
         require(msg.sender == _dethAddress, "Only the master contract can call this function");
         _; 
@@ -49,6 +50,7 @@ contract DethSafeModule{
         }
     }
 
+    // Distribute the ETH among the will beneficiaries
     function distributeETH() public onlyDETH{
         uint256 initETH = address(_safeAddress).balance;
         for (uint i=0; i<_beneficiaries.length-1; i++){
@@ -57,6 +59,7 @@ contract DethSafeModule{
         _transferETH(_beneficiaries[_beneficiaries.length], address(_safeAddress).balance);
     }
 
+    // Distribute tokens among the will beneficiaries
     function distributeTokens(address tokenAddress) public onlyDETH{
         IERC20_2 token = IERC20_2(tokenAddress);
         uint256 initTokens = token.balanceOf(_safeAddress);
@@ -65,6 +68,8 @@ contract DethSafeModule{
         }
         _transferTokens(tokenAddress, _beneficiaries[_beneficiaries.length], address(_safeAddress).balance);
     }
+
+    // --- Helper functions ---
 
     function _transferETH(address receiver, uint256 transferAmount) private{
         require (_safe.execTransactionFromModule(receiver, transferAmount, "", Enum.Operation.Call), "Could not execute Ether transfer");

@@ -31,10 +31,12 @@ contract DETH {
         return address(newContract);
     }
 
+    // Get minimum number of tokens needed as a bond to start a claim with UMA optimistic oracles
     function getMinimumBondForToken(address tokenAddress) public view returns (uint256){
         return _oo.getMinimumBond(address(tokenAddress));
     }
 
+    // Start a claim with minimum amount of token bonds
     function startClaimWithMinBond(bytes32 idHash, string memory ipfsLink, address tokenAddress) public payable{
         require (willRegister[idHash]!=address(0), "idHash not registered");
 
@@ -82,11 +84,13 @@ contract DETH {
         }
     }
 
+    // Distributes the ETH of the safe (using the safe module, after the claim has been verified)
     function distributeETH(bytes32 idHash) public{
         require (verifiedClaims[idHash] == 1, "Claim not verified");
         DethSafeModule(willRegister[idHash]).distributeETH();
     }
 
+    // Same but for tokens
     function distributeTokens(bytes32 idHash, address tokenAddress) public{
         require (verifiedClaims[idHash] == 1, "Claim not verified");
         DethSafeModule(willRegister[idHash]).distributeTokens(tokenAddress);
@@ -96,12 +100,12 @@ contract DETH {
     // This OptimisticOracleV3 callback function needs to be defined so the OOv3 doesn't revert when it tries to call it.
     function assertionDisputedCallback(bytes32 assertionId) public {}
 
+    // Truncate string to bytes32
     function stringToBytes32(string memory s) public pure returns (bytes32) {
         bytes memory stringBytes = bytes(s);
 
         if (stringBytes.length > 32) {
             assembly {
-                // Truncate the string to 32 bytes
                 mstore(stringBytes, 32)
             }
         }
