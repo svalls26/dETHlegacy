@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import ConnectButton from "../hooks/ConnectButton";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { FaucetButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
 
 interface HeaderMenuLink {
@@ -97,7 +96,6 @@ export const Header = () => {
       </div>
       <div className="navbar-end flex-grow mr-4">
         <ConnectButton />
-        <FaucetButton />
       </div>
     </div>
   );
