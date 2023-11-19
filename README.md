@@ -1,4 +1,11 @@
+
+
+
 # dETHlegacy
+
+<p align="center">
+  <img src="./logo.png" alt="Logo" width="200">
+</p>
 
 The project is a blockchain-based system designed for managing digital assets after a user's death. Its core purpose is to ensure that digital assets are securely and accurately distributed according to the wishes of the deceased.
 
