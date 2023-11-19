@@ -1,0 +1,3479 @@
+{
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "contract IERC20",
+          "name": "defaultCurrency",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "defaultLiveness",
+          "type": "uint64"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "burnedBondPercentage",
+          "type": "uint256"
+        }
+      ],
+      "name": "AdminPropertiesSet",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "disputer",
+          "type": "address"
+        }
+      ],
+      "name": "AssertionDisputed",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "domainId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "claim",
+          "type": "bytes"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "asserter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "callbackRecipient",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "escalationManager",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint64",
+          "name": "expirationTime",
+          "type": "uint64"
+        },
+        {
+          "indexed": false,
+          "internalType": "contract IERC20",
+          "name": "currency",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "bond",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "identifier",
+          "type": "bytes32"
+        }
+      ],
+      "name": "AssertionMade",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "bondRecipient",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "disputed",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "settlementResolution",
+          "type": "bool"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "settleCaller",
+          "type": "address"
+        }
+      ],
+      "name": "AssertionSettled",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "claim",
+          "type": "bytes"
+        },
+        {
+          "internalType": "address",
+          "name": "asserter",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "callbackRecipient",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "escalationManager",
+          "type": "address"
+        },
+        {
+          "internalType": "uint64",
+          "name": "liveness",
+          "type": "uint64"
+        },
+        {
+          "internalType": "contract IERC20",
+          "name": "currency",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "bond",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "identifier",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "domainId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "assertTruth",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "claim",
+          "type": "bytes"
+        },
+        {
+          "internalType": "address",
+          "name": "asserter",
+          "type": "address"
+        }
+      ],
+      "name": "assertTruthWithDefaults",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "defaultIdentifier",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getAssertion",
+      "outputs": [
+        {
+          "components": [
+            {
+              "components": [
+                {
+                  "internalType": "bool",
+                  "name": "arbitrateViaEscalationManager",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "discardOracle",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "validateDisputers",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "address",
+                  "name": "assertingCaller",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "escalationManager",
+                  "type": "address"
+                }
+              ],
+              "internalType": "struct OptimisticOracleV3Interface.EscalationManagerSettings",
+              "name": "escalationManagerSettings",
+              "type": "tuple"
+            },
+            {
+              "internalType": "address",
+              "name": "asserter",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "assertionTime",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "settled",
+              "type": "bool"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "currency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "expirationTime",
+              "type": "uint64"
+            },
+            {
+              "internalType": "bool",
+              "name": "settlementResolution",
+              "type": "bool"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "domainId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "identifier",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bond",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "callbackRecipient",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "disputer",
+              "type": "address"
+            }
+          ],
+          "internalType": "struct OptimisticOracleV3Interface.Assertion",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getAssertionResult",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "currency",
+          "type": "address"
+        }
+      ],
+      "name": "getMinimumBond",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "settleAndGetAssertionResult",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "assertionId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "settleAssertion",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "identifier",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "currency",
+          "type": "address"
+        }
+      ],
+      "name": "syncUmaParams",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "assertTruth(bytes,address,address,address,uint64,address,uint256,bytes32,bytes32)": "6457c979",
+    "assertTruthWithDefaults(bytes,address)": "36b13af4",
+    "defaultIdentifier()": "d509b017",
+    "getAssertion(bytes32)": "88302884",
+    "getAssertionResult(bytes32)": "e39dfd7f",
+    "getMinimumBond(address)": "4360af3d",
+    "settleAndGetAssertionResult(bytes32)": "8ea2f2ab",
+    "settleAssertion(bytes32)": "4124beef",
+    "syncUmaParams(bytes32,address)": "a8655785"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.16+commit.07a7930e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract IERC20\",\"name\":\"defaultCurrency\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"defaultLiveness\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"burnedBondPercentage\",\"type\":\"uint256\"}],\"name\":\"AdminPropertiesSet\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"disputer\",\"type\":\"address\"}],\"name\":\"AssertionDisputed\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"domainId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes\",\"name\":\"claim\",\"type\":\"bytes\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"asserter\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"callbackRecipient\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"escalationManager\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"caller\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"expirationTime\",\"type\":\"uint64\"},{\"indexed\":false,\"internalType\":\"contract IERC20\",\"name\":\"currency\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"}],\"name\":\"AssertionMade\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"bondRecipient\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"disputed\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"settlementResolution\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"settleCaller\",\"type\":\"address\"}],\"name\":\"AssertionSettled\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"claim\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"asserter\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"callbackRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"escalationManager\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"liveness\",\"type\":\"uint64\"},{\"internalType\":\"contract IERC20\",\"name\":\"currency\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"},{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"domainId\",\"type\":\"bytes32\"}],\"name\":\"assertTruth\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes\",\"name\":\"claim\",\"type\":\"bytes\"},{\"internalType\":\"address\",\"name\":\"asserter\",\"type\":\"address\"}],\"name\":\"assertTruthWithDefaults\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"defaultIdentifier\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"}],\"name\":\"getAssertion\",\"outputs\":[{\"components\":[{\"components\":[{\"internalType\":\"bool\",\"name\":\"arbitrateViaEscalationManager\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"discardOracle\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"validateDisputers\",\"type\":\"bool\"},{\"internalType\":\"address\",\"name\":\"assertingCaller\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"escalationManager\",\"type\":\"address\"}],\"internalType\":\"struct OptimisticOracleV3Interface.EscalationManagerSettings\",\"name\":\"escalationManagerSettings\",\"type\":\"tuple\"},{\"internalType\":\"address\",\"name\":\"asserter\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"assertionTime\",\"type\":\"uint64\"},{\"internalType\":\"bool\",\"name\":\"settled\",\"type\":\"bool\"},{\"internalType\":\"contract IERC20\",\"name\":\"currency\",\"type\":\"address\"},{\"internalType\":\"uint64\",\"name\":\"expirationTime\",\"type\":\"uint64\"},{\"internalType\":\"bool\",\"name\":\"settlementResolution\",\"type\":\"bool\"},{\"internalType\":\"bytes32\",\"name\":\"domainId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"bond\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"callbackRecipient\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"disputer\",\"type\":\"address\"}],\"internalType\":\"struct OptimisticOracleV3Interface.Assertion\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"}],\"name\":\"getAssertionResult\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"currency\",\"type\":\"address\"}],\"name\":\"getMinimumBond\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"}],\"name\":\"settleAndGetAssertionResult\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"assertionId\",\"type\":\"bytes32\"}],\"name\":\"settleAssertion\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"identifier\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"currency\",\"type\":\"address\"}],\"name\":\"syncUmaParams\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{\"assertTruth(bytes,address,address,address,uint64,address,uint256,bytes32,bytes32)\":{\"details\":\"The caller must approve this contract to spend at least bond amount of currency.\",\"params\":{\"asserter\":\"receives bonds back at settlement. This could be msg.sender or any other account that the caller wants to receive the bond at settlement time.\",\"bond\":\"amount of currency to pull from the caller and hold in escrow until the assertion is resolved. This must be >= getMinimumBond(address(currency)).\",\"callbackRecipient\":\"if configured, this address will receive a function call assertionResolvedCallback and assertionDisputedCallback at resolution or dispute respectively. Enables dynamic responses to these events. The recipient _must_ implement these callbacks and not revert or the assertion resolution will be blocked.\",\"claim\":\"the truth claim being asserted. This is an assertion about the world, and is verified by disputers.\",\"currency\":\"bond currency pulled from the caller and held in escrow until the assertion is resolved.\",\"domainId\":\"optional domain that can be used to relate this assertion to others in the escalationManager and can be used by the configured escalationManager to define custom behavior for groups of assertions. This is typically used for \\\"escalation games\\\" by changing bonds or other assertion properties based on the other assertions that have come before. If not needed this value should be 0 to save gas.\",\"escalationManager\":\"if configured, this address will control escalation properties of the assertion. This means a) choosing to arbitrate via the UMA DVM, b) choosing to discard assertions on dispute, or choosing to validate disputes. Combining these, the asserter can define their own security properties for the assertion. escalationManager also _must_ implement the same callbacks as callbackRecipient.\",\"identifier\":\"UMA DVM identifier to use for price requests in the event of a dispute. Must be pre-approved.\",\"liveness\":\"time to wait before the assertion can be resolved. Assertion can be disputed in this time.\"},\"returns\":{\"_0\":\"assertionId unique identifier for this assertion.\"}},\"assertTruthWithDefaults(bytes,address)\":{\"details\":\"The caller must approve this contract to spend at least the result of getMinimumBond(defaultCurrency).\",\"params\":{\"asserter\":\"receives bonds back at settlement. This could be msg.sender or any other account that the caller wants to receive the bond at settlement time.\",\"claim\":\"the truth claim being asserted. This is an assertion about the world, and is verified by disputers.\"},\"returns\":{\"_0\":\"assertionId unique identifier for this assertion.\"}},\"defaultIdentifier()\":{\"returns\":{\"_0\":\"The default identifier.\"}},\"getAssertion(bytes32)\":{\"params\":{\"assertionId\":\"unique identifier for the assertion to fetch information for.\"},\"returns\":{\"_0\":\"assertion information about the assertion.\"}},\"getAssertionResult(bytes32)\":{\"params\":{\"assertionId\":\"unique identifier for the assertion to fetch the resolution for.\"},\"returns\":{\"_0\":\"resolution of the assertion.\"}},\"getMinimumBond(address)\":{\"params\":{\"currency\":\"currency to calculate the minimum bond for.\"},\"returns\":{\"_0\":\"minimum bond amount.\"}},\"settleAndGetAssertionResult(bytes32)\":{\"params\":{\"assertionId\":\"unique identifier for the assertion to resolve and return the resolution for.\"},\"returns\":{\"_0\":\"resolution of the assertion.\"}},\"settleAssertion(bytes32)\":{\"params\":{\"assertionId\":\"unique identifier for the assertion to resolve.\"}},\"syncUmaParams(bytes32,address)\":{\"params\":{\"currency\":\"currency to fetch information for and store locally.\",\"identifier\":\"identifier to fetch information for and store locally.\"}}},\"title\":\"Optimistic Oracle V3 Interface that callers must use to assert truths about the world.\",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{\"assertTruth(bytes,address,address,address,uint64,address,uint256,bytes32,bytes32)\":{\"notice\":\"Asserts a truth about the world, using a fully custom configuration.\"},\"assertTruthWithDefaults(bytes,address)\":{\"notice\":\"Asserts a truth about the world, using the default currency and liveness. No callback recipient or escalation manager is enabled. The caller is expected to provide a bond of finalFee/burnedBondPercentage (with burnedBondPercentage set to 50%, the bond is 2x final fee) of the default currency.\"},\"defaultIdentifier()\":{\"notice\":\"Returns the default identifier used by the Optimistic Oracle V3.\"},\"getAssertion(bytes32)\":{\"notice\":\"Fetches information about a specific assertion and returns it.\"},\"getAssertionResult(bytes32)\":{\"notice\":\"Fetches the resolution of a specific assertion and returns it. If the assertion has not been settled then this will revert. If the assertion was disputed and configured to discard the oracle resolution return false.\"},\"getMinimumBond(address)\":{\"notice\":\"Returns the minimum bond amount required to make an assertion. This is calculated as the final fee of the currency divided by the burnedBondPercentage. If burn percentage is 50% then the min bond is 2x the final fee.\"},\"settleAndGetAssertionResult(bytes32)\":{\"notice\":\"Settles an assertion and returns the resolution.\"},\"settleAssertion(bytes32)\":{\"notice\":\"Resolves an assertion. If the assertion has not been disputed, the assertion is resolved as true and the asserter receives the bond. If the assertion has been disputed, the assertion is resolved depending on the oracle result. Based on the result, the asserter or disputer receives the bond. If the assertion was disputed then an amount of the bond is sent to the UMA Store as an oracle fee based on the burnedBondPercentage. The remainder of the bond is returned to the asserter or disputer.\"},\"syncUmaParams(bytes32,address)\":{\"notice\":\"Fetches information about a specific identifier & currency from the UMA contracts and stores a local copy of the information within this contract. This is used to save gas when making assertions as we can avoid an external call to the UMA contracts to fetch this.\"}},\"version\":1}},\"settings\":{\"compilationTarget\":{\"node_modules/@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol\":\"OptimisticOracleV3Interface\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@across-protocol/=node_modules/@across-protocol/\",\":@ensdomains/=node_modules/@ensdomains/\",\":@eth-optimism/=node_modules/@eth-optimism/\",\":@gnosis.pm/=node_modules/@gnosis.pm/\",\":@maticnetwork/=node_modules/@maticnetwork/\",\":@openzeppelin/=node_modules/@openzeppelin/\",\":@uma/=node_modules/@uma/\",\":@uniswap/=node_modules/@uniswap/\",\":base64-sol/=node_modules/base64-sol/\",\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":eth-gas-reporter/=node_modules/eth-gas-reporter/\",\":forge-std/=lib/forge-std/src/\",\":hardhat-deploy/=node_modules/hardhat-deploy/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\"]},\"sources\":{\"node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5\",\"dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53\"]},\"node_modules/@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol\":{\"keccak256\":\"0x06c16f033cb100a20286b0f9c866a33a227a9e534544d5da6e5e20103d182d00\",\"license\":\"AGPL-3.0-only\",\"urls\":[\"bzz-raw://a354805eab907d5e9e7910f66ef5c5c5594bb5144a77541d6d30c6cb3cbd6871\",\"dweb:/ipfs/QmTfUDPJrsuUQ2aPwsbQwTaSvjUzBQFvFxXtmscZFymM4X\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.16+commit.07a7930e"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "contract IERC20",
+              "name": "defaultCurrency",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "uint64",
+              "name": "defaultLiveness",
+              "type": "uint64",
+              "indexed": false
+            },
+            {
+              "internalType": "uint256",
+              "name": "burnedBondPercentage",
+              "type": "uint256",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AdminPropertiesSet",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "caller",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "disputer",
+              "type": "address",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "AssertionDisputed",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "bytes32",
+              "name": "domainId",
+              "type": "bytes32",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes",
+              "name": "claim",
+              "type": "bytes",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "asserter",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "callbackRecipient",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "escalationManager",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "caller",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "uint64",
+              "name": "expirationTime",
+              "type": "uint64",
+              "indexed": false
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "currency",
+              "type": "address",
+              "indexed": false
+            },
+            {
+              "internalType": "uint256",
+              "name": "bond",
+              "type": "uint256",
+              "indexed": false
+            },
+            {
+              "internalType": "bytes32",
+              "name": "identifier",
+              "type": "bytes32",
+              "indexed": true
+            }
+          ],
+          "type": "event",
+          "name": "AssertionMade",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32",
+              "indexed": true
+            },
+            {
+              "internalType": "address",
+              "name": "bondRecipient",
+              "type": "address",
+              "indexed": true
+            },
+            {
+              "internalType": "bool",
+              "name": "disputed",
+              "type": "bool",
+              "indexed": false
+            },
+            {
+              "internalType": "bool",
+              "name": "settlementResolution",
+              "type": "bool",
+              "indexed": false
+            },
+            {
+              "internalType": "address",
+              "name": "settleCaller",
+              "type": "address",
+              "indexed": false
+            }
+          ],
+          "type": "event",
+          "name": "AssertionSettled",
+          "anonymous": false
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "claim",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "asserter",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "callbackRecipient",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "escalationManager",
+              "type": "address"
+            },
+            {
+              "internalType": "uint64",
+              "name": "liveness",
+              "type": "uint64"
+            },
+            {
+              "internalType": "contract IERC20",
+              "name": "currency",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "bond",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "identifier",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "domainId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "assertTruth",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes",
+              "name": "claim",
+              "type": "bytes"
+            },
+            {
+              "internalType": "address",
+              "name": "asserter",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "assertTruthWithDefaults",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ]
+        },
+        {
+          "inputs": [],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "defaultIdentifier",
+          "outputs": [
+            {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAssertion",
+          "outputs": [
+            {
+              "internalType": "struct OptimisticOracleV3Interface.Assertion",
+              "name": "",
+              "type": "tuple",
+              "components": [
+                {
+                  "internalType": "struct OptimisticOracleV3Interface.EscalationManagerSettings",
+                  "name": "escalationManagerSettings",
+                  "type": "tuple",
+                  "components": [
+                    {
+                      "internalType": "bool",
+                      "name": "arbitrateViaEscalationManager",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "discardOracle",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "bool",
+                      "name": "validateDisputers",
+                      "type": "bool"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "assertingCaller",
+                      "type": "address"
+                    },
+                    {
+                      "internalType": "address",
+                      "name": "escalationManager",
+                      "type": "address"
+                    }
+                  ]
+                },
+                {
+                  "internalType": "address",
+                  "name": "asserter",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "assertionTime",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "settled",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "contract IERC20",
+                  "name": "currency",
+                  "type": "address"
+                },
+                {
+                  "internalType": "uint64",
+                  "name": "expirationTime",
+                  "type": "uint64"
+                },
+                {
+                  "internalType": "bool",
+                  "name": "settlementResolution",
+                  "type": "bool"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "domainId",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "bytes32",
+                  "name": "identifier",
+                  "type": "bytes32"
+                },
+                {
+                  "internalType": "uint256",
+                  "name": "bond",
+                  "type": "uint256"
+                },
+                {
+                  "internalType": "address",
+                  "name": "callbackRecipient",
+                  "type": "address"
+                },
+                {
+                  "internalType": "address",
+                  "name": "disputer",
+                  "type": "address"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getAssertionResult",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "currency",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "view",
+          "type": "function",
+          "name": "getMinimumBond",
+          "outputs": [
+            {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "settleAndGetAssertionResult",
+          "outputs": [
+            {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+            }
+          ]
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "assertionId",
+              "type": "bytes32"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "settleAssertion"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "bytes32",
+              "name": "identifier",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "address",
+              "name": "currency",
+              "type": "address"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "syncUmaParams"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {
+          "assertTruth(bytes,address,address,address,uint64,address,uint256,bytes32,bytes32)": {
+            "details": "The caller must approve this contract to spend at least bond amount of currency.",
+            "params": {
+              "asserter": "receives bonds back at settlement. This could be msg.sender or any other account that the caller wants to receive the bond at settlement time.",
+              "bond": "amount of currency to pull from the caller and hold in escrow until the assertion is resolved. This must be >= getMinimumBond(address(currency)).",
+              "callbackRecipient": "if configured, this address will receive a function call assertionResolvedCallback and assertionDisputedCallback at resolution or dispute respectively. Enables dynamic responses to these events. The recipient _must_ implement these callbacks and not revert or the assertion resolution will be blocked.",
+              "claim": "the truth claim being asserted. This is an assertion about the world, and is verified by disputers.",
+              "currency": "bond currency pulled from the caller and held in escrow until the assertion is resolved.",
+              "domainId": "optional domain that can be used to relate this assertion to others in the escalationManager and can be used by the configured escalationManager to define custom behavior for groups of assertions. This is typically used for \"escalation games\" by changing bonds or other assertion properties based on the other assertions that have come before. If not needed this value should be 0 to save gas.",
+              "escalationManager": "if configured, this address will control escalation properties of the assertion. This means a) choosing to arbitrate via the UMA DVM, b) choosing to discard assertions on dispute, or choosing to validate disputes. Combining these, the asserter can define their own security properties for the assertion. escalationManager also _must_ implement the same callbacks as callbackRecipient.",
+              "identifier": "UMA DVM identifier to use for price requests in the event of a dispute. Must be pre-approved.",
+              "liveness": "time to wait before the assertion can be resolved. Assertion can be disputed in this time."
+            },
+            "returns": {
+              "_0": "assertionId unique identifier for this assertion."
+            }
+          },
+          "assertTruthWithDefaults(bytes,address)": {
+            "details": "The caller must approve this contract to spend at least the result of getMinimumBond(defaultCurrency).",
+            "params": {
+              "asserter": "receives bonds back at settlement. This could be msg.sender or any other account that the caller wants to receive the bond at settlement time.",
+              "claim": "the truth claim being asserted. This is an assertion about the world, and is verified by disputers."
+            },
+            "returns": {
+              "_0": "assertionId unique identifier for this assertion."
+            }
+          },
+          "defaultIdentifier()": {
+            "returns": {
+              "_0": "The default identifier."
+            }
+          },
+          "getAssertion(bytes32)": {
+            "params": {
+              "assertionId": "unique identifier for the assertion to fetch information for."
+            },
+            "returns": {
+              "_0": "assertion information about the assertion."
+            }
+          },
+          "getAssertionResult(bytes32)": {
+            "params": {
+              "assertionId": "unique identifier for the assertion to fetch the resolution for."
+            },
+            "returns": {
+              "_0": "resolution of the assertion."
+            }
+          },
+          "getMinimumBond(address)": {
+            "params": {
+              "currency": "currency to calculate the minimum bond for."
+            },
+            "returns": {
+              "_0": "minimum bond amount."
+            }
+          },
+          "settleAndGetAssertionResult(bytes32)": {
+            "params": {
+              "assertionId": "unique identifier for the assertion to resolve and return the resolution for."
+            },
+            "returns": {
+              "_0": "resolution of the assertion."
+            }
+          },
+          "settleAssertion(bytes32)": {
+            "params": {
+              "assertionId": "unique identifier for the assertion to resolve."
+            }
+          },
+          "syncUmaParams(bytes32,address)": {
+            "params": {
+              "currency": "currency to fetch information for and store locally.",
+              "identifier": "identifier to fetch information for and store locally."
+            }
+          }
+        },
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {
+          "assertTruth(bytes,address,address,address,uint64,address,uint256,bytes32,bytes32)": {
+            "notice": "Asserts a truth about the world, using a fully custom configuration."
+          },
+          "assertTruthWithDefaults(bytes,address)": {
+            "notice": "Asserts a truth about the world, using the default currency and liveness. No callback recipient or escalation manager is enabled. The caller is expected to provide a bond of finalFee/burnedBondPercentage (with burnedBondPercentage set to 50%, the bond is 2x final fee) of the default currency."
+          },
+          "defaultIdentifier()": {
+            "notice": "Returns the default identifier used by the Optimistic Oracle V3."
+          },
+          "getAssertion(bytes32)": {
+            "notice": "Fetches information about a specific assertion and returns it."
+          },
+          "getAssertionResult(bytes32)": {
+            "notice": "Fetches the resolution of a specific assertion and returns it. If the assertion has not been settled then this will revert. If the assertion was disputed and configured to discard the oracle resolution return false."
+          },
+          "getMinimumBond(address)": {
+            "notice": "Returns the minimum bond amount required to make an assertion. This is calculated as the final fee of the currency divided by the burnedBondPercentage. If burn percentage is 50% then the min bond is 2x the final fee."
+          },
+          "settleAndGetAssertionResult(bytes32)": {
+            "notice": "Settles an assertion and returns the resolution."
+          },
+          "settleAssertion(bytes32)": {
+            "notice": "Resolves an assertion. If the assertion has not been disputed, the assertion is resolved as true and the asserter receives the bond. If the assertion has been disputed, the assertion is resolved depending on the oracle result. Based on the result, the asserter or disputer receives the bond. If the assertion was disputed then an amount of the bond is sent to the UMA Store as an oracle fee based on the burnedBondPercentage. The remainder of the bond is returned to the asserter or disputer."
+          },
+          "syncUmaParams(bytes32,address)": {
+            "notice": "Fetches information about a specific identifier & currency from the UMA contracts and stores a local copy of the information within this contract. This is used to save gas when making assertions as we can avoid an external call to the UMA contracts to fetch this."
+          }
+        },
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        "@across-protocol/=node_modules/@across-protocol/",
+        "@ensdomains/=node_modules/@ensdomains/",
+        "@eth-optimism/=node_modules/@eth-optimism/",
+        "@gnosis.pm/=node_modules/@gnosis.pm/",
+        "@maticnetwork/=node_modules/@maticnetwork/",
+        "@openzeppelin/=node_modules/@openzeppelin/",
+        "@uma/=node_modules/@uma/",
+        "@uniswap/=node_modules/@uniswap/",
+        "base64-sol/=node_modules/base64-sol/",
+        "ds-test/=lib/forge-std/lib/ds-test/src/",
+        "eth-gas-reporter/=node_modules/eth-gas-reporter/",
+        "forge-std/=lib/forge-std/src/",
+        "hardhat-deploy/=node_modules/hardhat-deploy/",
+        "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "node_modules/@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol": "OptimisticOracleV3Interface"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+        "keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305",
+        "urls": [
+          "bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5",
+          "dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
+        ],
+        "license": "MIT"
+      },
+      "node_modules/@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol": {
+        "keccak256": "0x06c16f033cb100a20286b0f9c866a33a227a9e534544d5da6e5e20103d182d00",
+        "urls": [
+          "bzz-raw://a354805eab907d5e9e7910f66ef5c5c5594bb5144a77541d6d30c6cb3cbd6871",
+          "dweb:/ipfs/QmTfUDPJrsuUQ2aPwsbQwTaSvjUzBQFvFxXtmscZFymM4X"
+        ],
+        "license": "AGPL-3.0-only"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "node_modules/@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3Interface.sol",
+    "id": 44887,
+    "exportedSymbols": {
+      "IERC20": [
+        43542
+      ],
+      "OptimisticOracleV3Interface": [
+        44886
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "42:9446:25",
+    "nodes": [
+      {
+        "id": 44698,
+        "nodeType": "PragmaDirective",
+        "src": "42:23:25",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          "0.8",
+          ".16"
+        ]
+      },
+      {
+        "id": 44699,
+        "nodeType": "ImportDirective",
+        "src": "67:56:25",
+        "nodes": [],
+        "absolutePath": "node_modules/@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "file": "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "nameLocation": "-1:-1:-1",
+        "scope": 44887,
+        "sourceUnit": 43543,
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "id": 44886,
+        "nodeType": "ContractDefinition",
+        "src": "230:9257:25",
+        "nodes": [
+          {
+            "id": 44711,
+            "nodeType": "StructDefinition",
+            "src": "378:538:25",
+            "nodes": [],
+            "canonicalName": "OptimisticOracleV3Interface.EscalationManagerSettings",
+            "members": [
+              {
+                "constant": false,
+                "id": 44702,
+                "mutability": "mutable",
+                "name": "arbitrateViaEscalationManager",
+                "nameLocation": "426:29:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44711,
+                "src": "421:34:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44701,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "421:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44704,
+                "mutability": "mutable",
+                "name": "discardOracle",
+                "nameLocation": "540:13:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44711,
+                "src": "535:18:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44703,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "535:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44706,
+                "mutability": "mutable",
+                "name": "validateDisputers",
+                "nameLocation": "641:17:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44711,
+                "src": "636:22:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44705,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "636:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44708,
+                "mutability": "mutable",
+                "name": "assertingCaller",
+                "nameLocation": "742:15:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44711,
+                "src": "734:23:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 44707,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "734:7:25",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44710,
+                "mutability": "mutable",
+                "name": "escalationManager",
+                "nameLocation": "821:17:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44711,
+                "src": "813:25:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 44709,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "813:7:25",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "EscalationManagerSettings",
+            "nameLocation": "385:25:25",
+            "scope": 44886,
+            "visibility": "public"
+          },
+          {
+            "id": 44738,
+            "nodeType": "StructDefinition",
+            "src": "990:998:25",
+            "nodes": [],
+            "canonicalName": "OptimisticOracleV3Interface.Assertion",
+            "members": [
+              {
+                "constant": false,
+                "id": 44714,
+                "mutability": "mutable",
+                "name": "escalationManagerSettings",
+                "nameLocation": "1043:25:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1017:51:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_EscalationManagerSettings_$44711_storage_ptr",
+                  "typeString": "struct OptimisticOracleV3Interface.EscalationManagerSettings"
+                },
+                "typeName": {
+                  "id": 44713,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 44712,
+                    "name": "EscalationManagerSettings",
+                    "nameLocations": [
+                      "1017:25:25"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 44711,
+                    "src": "1017:25:25"
+                  },
+                  "referencedDeclaration": 44711,
+                  "src": "1017:25:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_EscalationManagerSettings_$44711_storage_ptr",
+                    "typeString": "struct OptimisticOracleV3Interface.EscalationManagerSettings"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44716,
+                "mutability": "mutable",
+                "name": "asserter",
+                "nameLocation": "1133:8:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1125:16:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 44715,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1125:7:25",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44718,
+                "mutability": "mutable",
+                "name": "assertionTime",
+                "nameLocation": "1186:13:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1179:20:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 44717,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1179:6:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44720,
+                "mutability": "mutable",
+                "name": "settled",
+                "nameLocation": "1240:7:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1235:12:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44719,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1235:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44723,
+                "mutability": "mutable",
+                "name": "currency",
+                "nameLocation": "1299:8:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1292:15:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_contract$_IERC20_$43542",
+                  "typeString": "contract IERC20"
+                },
+                "typeName": {
+                  "id": 44722,
+                  "nodeType": "UserDefinedTypeName",
+                  "pathNode": {
+                    "id": 44721,
+                    "name": "IERC20",
+                    "nameLocations": [
+                      "1292:6:25"
+                    ],
+                    "nodeType": "IdentifierPath",
+                    "referencedDeclaration": 43542,
+                    "src": "1292:6:25"
+                  },
+                  "referencedDeclaration": 43542,
+                  "src": "1292:6:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$43542",
+                    "typeString": "contract IERC20"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44725,
+                "mutability": "mutable",
+                "name": "expirationTime",
+                "nameLocation": "1369:14:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1362:21:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint64",
+                  "typeString": "uint64"
+                },
+                "typeName": {
+                  "id": 44724,
+                  "name": "uint64",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1362:6:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44727,
+                "mutability": "mutable",
+                "name": "settlementResolution",
+                "nameLocation": "1480:20:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1475:25:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44726,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1475:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44729,
+                "mutability": "mutable",
+                "name": "domainId",
+                "nameLocation": "1572:8:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1564:16:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 44728,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1564:7:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44731,
+                "mutability": "mutable",
+                "name": "identifier",
+                "nameLocation": "1694:10:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1686:18:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                },
+                "typeName": {
+                  "id": 44730,
+                  "name": "bytes32",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1686:7:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44733,
+                "mutability": "mutable",
+                "name": "bond",
+                "nameLocation": "1797:4:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1789:12:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 44732,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1789:7:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44735,
+                "mutability": "mutable",
+                "name": "callbackRecipient",
+                "nameLocation": "1871:17:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1863:25:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 44734,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1863:7:25",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44737,
+                "mutability": "mutable",
+                "name": "disputer",
+                "nameLocation": "1945:8:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44738,
+                "src": "1937:16:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 44736,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1937:7:25",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "Assertion",
+            "nameLocation": "997:9:25",
+            "scope": 44886,
+            "visibility": "public"
+          },
+          {
+            "id": 44743,
+            "nodeType": "StructDefinition",
+            "src": "2047:158:25",
+            "nodes": [],
+            "canonicalName": "OptimisticOracleV3Interface.WhitelistedCurrency",
+            "members": [
+              {
+                "constant": false,
+                "id": 44740,
+                "mutability": "mutable",
+                "name": "isWhitelisted",
+                "nameLocation": "2089:13:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44743,
+                "src": "2084:18:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 44739,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2084:4:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 44742,
+                "mutability": "mutable",
+                "name": "finalFee",
+                "nameLocation": "2160:8:25",
+                "nodeType": "VariableDeclaration",
+                "scope": 44743,
+                "src": "2152:16:25",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 44741,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "2152:7:25",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "WhitelistedCurrency",
+            "nameLocation": "2054:19:25",
+            "scope": 44886,
+            "visibility": "public"
+          },
+          {
+            "id": 44749,
+            "nodeType": "FunctionDefinition",
+            "src": "2346:61:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44744,
+              "nodeType": "StructuredDocumentation",
+              "src": "2211:130:25",
+              "text": " @notice Returns the default identifier used by the Optimistic Oracle V3.\n @return The default identifier."
+            },
+            "functionSelector": "d509b017",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "defaultIdentifier",
+            "nameLocation": "2355:17:25",
+            "parameters": {
+              "id": 44745,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "2372:2:25"
+            },
+            "returnParameters": {
+              "id": 44748,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44747,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44749,
+                  "src": "2398:7:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44746,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2398:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2397:9:25"
+            },
+            "scope": 44886,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44758,
+            "nodeType": "FunctionDefinition",
+            "src": "2653:84:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44750,
+              "nodeType": "StructuredDocumentation",
+              "src": "2413:235:25",
+              "text": " @notice Fetches information about a specific assertion and returns it.\n @param assertionId unique identifier for the assertion to fetch information for.\n @return assertion information about the assertion."
+            },
+            "functionSelector": "88302884",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getAssertion",
+            "nameLocation": "2662:12:25",
+            "parameters": {
+              "id": 44753,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44752,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "2683:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44758,
+                  "src": "2675:19:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44751,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "2675:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2674:21:25"
+            },
+            "returnParameters": {
+              "id": 44757,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44756,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44758,
+                  "src": "2719:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Assertion_$44738_memory_ptr",
+                    "typeString": "struct OptimisticOracleV3Interface.Assertion"
+                  },
+                  "typeName": {
+                    "id": 44755,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 44754,
+                      "name": "Assertion",
+                      "nameLocations": [
+                        "2719:9:25"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 44738,
+                      "src": "2719:9:25"
+                    },
+                    "referencedDeclaration": 44738,
+                    "src": "2719:9:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Assertion_$44738_storage_ptr",
+                      "typeString": "struct OptimisticOracleV3Interface.Assertion"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "2718:18:25"
+            },
+            "scope": 44886,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44768,
+            "nodeType": "FunctionDefinition",
+            "src": "3555:98:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44759,
+              "nodeType": "StructuredDocumentation",
+              "src": "2743:807:25",
+              "text": " @notice Asserts a truth about the world, using the default currency and liveness. No callback recipient or\n escalation manager is enabled. The caller is expected to provide a bond of finalFee/burnedBondPercentage\n (with burnedBondPercentage set to 50%, the bond is 2x final fee) of the default currency.\n @dev The caller must approve this contract to spend at least the result of getMinimumBond(defaultCurrency).\n @param claim the truth claim being asserted. This is an assertion about the world, and is verified by disputers.\n @param asserter receives bonds back at settlement. This could be msg.sender or\n any other account that the caller wants to receive the bond at settlement time.\n @return assertionId unique identifier for this assertion."
+            },
+            "functionSelector": "36b13af4",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "assertTruthWithDefaults",
+            "nameLocation": "3564:23:25",
+            "parameters": {
+              "id": 44764,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44761,
+                  "mutability": "mutable",
+                  "name": "claim",
+                  "nameLocation": "3601:5:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44768,
+                  "src": "3588:18:25",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 44760,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3588:5:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44763,
+                  "mutability": "mutable",
+                  "name": "asserter",
+                  "nameLocation": "3616:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44768,
+                  "src": "3608:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44762,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3608:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3587:38:25"
+            },
+            "returnParameters": {
+              "id": 44767,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44766,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44768,
+                  "src": "3644:7:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44765,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "3644:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "3643:9:25"
+            },
+            "scope": 44886,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44793,
+            "nodeType": "FunctionDefinition",
+            "src": "5951:304:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44769,
+              "nodeType": "StructuredDocumentation",
+              "src": "3659:2287:25",
+              "text": " @notice Asserts a truth about the world, using a fully custom configuration.\n @dev The caller must approve this contract to spend at least bond amount of currency.\n @param claim the truth claim being asserted. This is an assertion about the world, and is verified by disputers.\n @param asserter receives bonds back at settlement. This could be msg.sender or\n any other account that the caller wants to receive the bond at settlement time.\n @param callbackRecipient if configured, this address will receive a function call assertionResolvedCallback and\n assertionDisputedCallback at resolution or dispute respectively. Enables dynamic responses to these events. The\n recipient _must_ implement these callbacks and not revert or the assertion resolution will be blocked.\n @param escalationManager if configured, this address will control escalation properties of the assertion. This\n means a) choosing to arbitrate via the UMA DVM, b) choosing to discard assertions on dispute, or choosing to\n validate disputes. Combining these, the asserter can define their own security properties for the assertion.\n escalationManager also _must_ implement the same callbacks as callbackRecipient.\n @param liveness time to wait before the assertion can be resolved. Assertion can be disputed in this time.\n @param currency bond currency pulled from the caller and held in escrow until the assertion is resolved.\n @param bond amount of currency to pull from the caller and hold in escrow until the assertion is resolved. This\n must be >= getMinimumBond(address(currency)).\n @param identifier UMA DVM identifier to use for price requests in the event of a dispute. Must be pre-approved.\n @param domainId optional domain that can be used to relate this assertion to others in the escalationManager and\n can be used by the configured escalationManager to define custom behavior for groups of assertions. This is\n typically used for \"escalation games\" by changing bonds or other assertion properties based on the other\n assertions that have come before. If not needed this value should be 0 to save gas.\n @return assertionId unique identifier for this assertion."
+            },
+            "functionSelector": "6457c979",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "assertTruth",
+            "nameLocation": "5960:11:25",
+            "parameters": {
+              "id": 44789,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44771,
+                  "mutability": "mutable",
+                  "name": "claim",
+                  "nameLocation": "5994:5:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "5981:18:25",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 44770,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5981:5:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44773,
+                  "mutability": "mutable",
+                  "name": "asserter",
+                  "nameLocation": "6017:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6009:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44772,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6009:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44775,
+                  "mutability": "mutable",
+                  "name": "callbackRecipient",
+                  "nameLocation": "6043:17:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6035:25:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44774,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6035:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44777,
+                  "mutability": "mutable",
+                  "name": "escalationManager",
+                  "nameLocation": "6078:17:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6070:25:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44776,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6070:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44779,
+                  "mutability": "mutable",
+                  "name": "liveness",
+                  "nameLocation": "6112:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6105:15:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 44778,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6105:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44782,
+                  "mutability": "mutable",
+                  "name": "currency",
+                  "nameLocation": "6137:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6130:15:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$43542",
+                    "typeString": "contract IERC20"
+                  },
+                  "typeName": {
+                    "id": 44781,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 44780,
+                      "name": "IERC20",
+                      "nameLocations": [
+                        "6130:6:25"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 43542,
+                      "src": "6130:6:25"
+                    },
+                    "referencedDeclaration": 43542,
+                    "src": "6130:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IERC20_$43542",
+                      "typeString": "contract IERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44784,
+                  "mutability": "mutable",
+                  "name": "bond",
+                  "nameLocation": "6163:4:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6155:12:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44783,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6155:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44786,
+                  "mutability": "mutable",
+                  "name": "identifier",
+                  "nameLocation": "6185:10:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6177:18:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44785,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6177:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44788,
+                  "mutability": "mutable",
+                  "name": "domainId",
+                  "nameLocation": "6213:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6205:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44787,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6205:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5971:256:25"
+            },
+            "returnParameters": {
+              "id": 44792,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44791,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44793,
+                  "src": "6246:7:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44790,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6246:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6245:9:25"
+            },
+            "scope": 44886,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44801,
+            "nodeType": "FunctionDefinition",
+            "src": "6726:70:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44794,
+              "nodeType": "StructuredDocumentation",
+              "src": "6261:460:25",
+              "text": " @notice Fetches information about a specific identifier & currency from the UMA contracts and stores a local copy\n of the information within this contract. This is used to save gas when making assertions as we can avoid an\n external call to the UMA contracts to fetch this.\n @param identifier identifier to fetch information for and store locally.\n @param currency currency to fetch information for and store locally."
+            },
+            "functionSelector": "a8655785",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "syncUmaParams",
+            "nameLocation": "6735:13:25",
+            "parameters": {
+              "id": 44799,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44796,
+                  "mutability": "mutable",
+                  "name": "identifier",
+                  "nameLocation": "6757:10:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44801,
+                  "src": "6749:18:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44795,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6749:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44798,
+                  "mutability": "mutable",
+                  "name": "currency",
+                  "nameLocation": "6777:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44801,
+                  "src": "6769:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44797,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6769:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6748:38:25"
+            },
+            "returnParameters": {
+              "id": 44800,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "6795:0:25"
+            },
+            "scope": 44886,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44807,
+            "nodeType": "FunctionDefinition",
+            "src": "7428:55:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44802,
+              "nodeType": "StructuredDocumentation",
+              "src": "6802:621:25",
+              "text": " @notice Resolves an assertion. If the assertion has not been disputed, the assertion is resolved as true and the\n asserter receives the bond. If the assertion has been disputed, the assertion is resolved depending on the oracle\n result. Based on the result, the asserter or disputer receives the bond. If the assertion was disputed then an\n amount of the bond is sent to the UMA Store as an oracle fee based on the burnedBondPercentage. The remainder of\n the bond is returned to the asserter or disputer.\n @param assertionId unique identifier for the assertion to resolve."
+            },
+            "functionSelector": "4124beef",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "settleAssertion",
+            "nameLocation": "7437:15:25",
+            "parameters": {
+              "id": 44805,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44804,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "7461:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44807,
+                  "src": "7453:19:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44803,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7453:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7452:21:25"
+            },
+            "returnParameters": {
+              "id": 44806,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "7482:0:25"
+            },
+            "scope": 44886,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44815,
+            "nodeType": "FunctionDefinition",
+            "src": "7717:82:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44808,
+              "nodeType": "StructuredDocumentation",
+              "src": "7489:223:25",
+              "text": " @notice Settles an assertion and returns the resolution.\n @param assertionId unique identifier for the assertion to resolve and return the resolution for.\n @return resolution of the assertion."
+            },
+            "functionSelector": "8ea2f2ab",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "settleAndGetAssertionResult",
+            "nameLocation": "7726:27:25",
+            "parameters": {
+              "id": 44811,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44810,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "7762:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44815,
+                  "src": "7754:19:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44809,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7754:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7753:21:25"
+            },
+            "returnParameters": {
+              "id": 44814,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44813,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44815,
+                  "src": "7793:4:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 44812,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "7793:4:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "7792:6:25"
+            },
+            "scope": 44886,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44823,
+            "nodeType": "FunctionDefinition",
+            "src": "8194:78:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44816,
+              "nodeType": "StructuredDocumentation",
+              "src": "7805:384:25",
+              "text": " @notice Fetches the resolution of a specific assertion and returns it. If the assertion has not been settled then\n this will revert. If the assertion was disputed and configured to discard the oracle resolution return false.\n @param assertionId unique identifier for the assertion to fetch the resolution for.\n @return resolution of the assertion."
+            },
+            "functionSelector": "e39dfd7f",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getAssertionResult",
+            "nameLocation": "8203:18:25",
+            "parameters": {
+              "id": 44819,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44818,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "8230:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44823,
+                  "src": "8222:19:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44817,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8222:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8221:21:25"
+            },
+            "returnParameters": {
+              "id": 44822,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44821,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44823,
+                  "src": "8266:4:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 44820,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8266:4:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8265:6:25"
+            },
+            "scope": 44886,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44831,
+            "nodeType": "FunctionDefinition",
+            "src": "8636:74:25",
+            "nodes": [],
+            "documentation": {
+              "id": 44824,
+              "nodeType": "StructuredDocumentation",
+              "src": "8278:353:25",
+              "text": " @notice Returns the minimum bond amount required to make an assertion. This is calculated as the final fee of the\n currency divided by the burnedBondPercentage. If burn percentage is 50% then the min bond is 2x the final fee.\n @param currency currency to calculate the minimum bond for.\n @return minimum bond amount."
+            },
+            "functionSelector": "4360af3d",
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getMinimumBond",
+            "nameLocation": "8645:14:25",
+            "parameters": {
+              "id": 44827,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44826,
+                  "mutability": "mutable",
+                  "name": "currency",
+                  "nameLocation": "8668:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44831,
+                  "src": "8660:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44825,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8660:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8659:18:25"
+            },
+            "returnParameters": {
+              "id": 44830,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44829,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44831,
+                  "src": "8701:7:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44828,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8701:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8700:9:25"
+            },
+            "scope": 44886,
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "external"
+          },
+          {
+            "id": 44856,
+            "nodeType": "EventDefinition",
+            "src": "8716:352:25",
+            "nodes": [],
+            "anonymous": false,
+            "eventSelector": "db1513f0abeb57a364db56aa3eb52015cca5268f00fd67bc73aaf22bccab02b7",
+            "name": "AssertionMade",
+            "nameLocation": "8722:13:25",
+            "parameters": {
+              "id": 44855,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44833,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "8761:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8745:27:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44832,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8745:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44835,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "domainId",
+                  "nameLocation": "8790:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8782:16:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44834,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8782:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44837,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "claim",
+                  "nameLocation": "8814:5:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8808:11:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes_memory_ptr",
+                    "typeString": "bytes"
+                  },
+                  "typeName": {
+                    "id": 44836,
+                    "name": "bytes",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8808:5:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes_storage_ptr",
+                      "typeString": "bytes"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44839,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "asserter",
+                  "nameLocation": "8845:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8829:24:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44838,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8829:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44841,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "callbackRecipient",
+                  "nameLocation": "8871:17:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8863:25:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44840,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8863:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44843,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "escalationManager",
+                  "nameLocation": "8906:17:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8898:25:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44842,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8898:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44845,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "caller",
+                  "nameLocation": "8941:6:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8933:14:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44844,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8933:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44847,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "expirationTime",
+                  "nameLocation": "8964:14:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8957:21:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 44846,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "8957:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44850,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "currency",
+                  "nameLocation": "8995:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "8988:15:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$43542",
+                    "typeString": "contract IERC20"
+                  },
+                  "typeName": {
+                    "id": 44849,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 44848,
+                      "name": "IERC20",
+                      "nameLocations": [
+                        "8988:6:25"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 43542,
+                      "src": "8988:6:25"
+                    },
+                    "referencedDeclaration": 43542,
+                    "src": "8988:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IERC20_$43542",
+                      "typeString": "contract IERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44852,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "bond",
+                  "nameLocation": "9021:4:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "9013:12:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44851,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9013:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44854,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "identifier",
+                  "nameLocation": "9051:10:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44856,
+                  "src": "9035:26:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44853,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9035:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "8735:332:25"
+            }
+          },
+          {
+            "id": 44864,
+            "nodeType": "EventDefinition",
+            "src": "9074:103:25",
+            "nodes": [],
+            "anonymous": false,
+            "eventSelector": "60133788b013c89f2a3756dbc47e3484997b87bd7e0af98a7d70232032c1ce2b",
+            "name": "AssertionDisputed",
+            "nameLocation": "9080:17:25",
+            "parameters": {
+              "id": 44863,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44858,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "9114:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44864,
+                  "src": "9098:27:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44857,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9098:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44860,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "caller",
+                  "nameLocation": "9143:6:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44864,
+                  "src": "9127:22:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44859,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9127:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44862,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "disputer",
+                  "nameLocation": "9167:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44864,
+                  "src": "9151:24:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44861,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9151:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "9097:79:25"
+            }
+          },
+          {
+            "id": 44876,
+            "nodeType": "EventDefinition",
+            "src": "9183:193:25",
+            "nodes": [],
+            "anonymous": false,
+            "eventSelector": "f4fa324b13daeb4e1aae736c2553632ae0fb16fb31f2d4da8ac99fd056313a13",
+            "name": "AssertionSettled",
+            "nameLocation": "9189:16:25",
+            "parameters": {
+              "id": 44875,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44866,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "assertionId",
+                  "nameLocation": "9231:11:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44876,
+                  "src": "9215:27:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 44865,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9215:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44868,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "bondRecipient",
+                  "nameLocation": "9268:13:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44876,
+                  "src": "9252:29:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44867,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9252:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44870,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "disputed",
+                  "nameLocation": "9296:8:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44876,
+                  "src": "9291:13:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 44869,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9291:4:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44872,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "settlementResolution",
+                  "nameLocation": "9319:20:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44876,
+                  "src": "9314:25:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 44871,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9314:4:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44874,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "settleCaller",
+                  "nameLocation": "9357:12:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44876,
+                  "src": "9349:20:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 44873,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9349:7:25",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "9205:170:25"
+            }
+          },
+          {
+            "id": 44885,
+            "nodeType": "EventDefinition",
+            "src": "9382:103:25",
+            "nodes": [],
+            "anonymous": false,
+            "eventSelector": "d0f09246d369018534c67fec6a6c3259c6f962ef82c5521c337ae0ccc104e4bd",
+            "name": "AdminPropertiesSet",
+            "nameLocation": "9388:18:25",
+            "parameters": {
+              "id": 44884,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 44879,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "defaultCurrency",
+                  "nameLocation": "9414:15:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44885,
+                  "src": "9407:22:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_contract$_IERC20_$43542",
+                    "typeString": "contract IERC20"
+                  },
+                  "typeName": {
+                    "id": 44878,
+                    "nodeType": "UserDefinedTypeName",
+                    "pathNode": {
+                      "id": 44877,
+                      "name": "IERC20",
+                      "nameLocations": [
+                        "9407:6:25"
+                      ],
+                      "nodeType": "IdentifierPath",
+                      "referencedDeclaration": 43542,
+                      "src": "9407:6:25"
+                    },
+                    "referencedDeclaration": 43542,
+                    "src": "9407:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_contract$_IERC20_$43542",
+                      "typeString": "contract IERC20"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44881,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "defaultLiveness",
+                  "nameLocation": "9438:15:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44885,
+                  "src": "9431:22:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint64",
+                    "typeString": "uint64"
+                  },
+                  "typeName": {
+                    "id": 44880,
+                    "name": "uint64",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9431:6:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint64",
+                      "typeString": "uint64"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 44883,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "burnedBondPercentage",
+                  "nameLocation": "9463:20:25",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 44885,
+                  "src": "9455:28:25",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 44882,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "9455:7:25",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "9406:78:25"
+            }
+          }
+        ],
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "OptimisticOracleV3Interface",
+        "contractDependencies": [],
+        "contractKind": "interface",
+        "documentation": {
+          "id": 44700,
+          "nodeType": "StructuredDocumentation",
+          "src": "125:104:25",
+          "text": " @title Optimistic Oracle V3 Interface that callers must use to assert truths about the world."
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          44886
+        ],
+        "name": "OptimisticOracleV3Interface",
+        "nameLocation": "240:27:25",
+        "scope": 44887,
+        "usedErrors": []
+      }
+    ],
+    "license": "AGPL-3.0-only"
+  },
+  "id": 25
+}

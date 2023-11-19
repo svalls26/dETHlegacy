@@ -8,48 +8,49 @@ import "@uma/core/contracts/optimistic-oracle-v3/interfaces/OptimisticOracleV3In
 
 contract DETH {
 
-    mapping(uint256 => uint256) public registration;
-    mapping(uint256 => bytes32) public claims;
-    mapping(uint256 => uint256) public verifiedClaims;
-    mapping(bytes32 => uint256) public claimsAssertionIdToId;
+    mapping(bytes32 => address) public willRegister;
+    mapping(bytes32 => bytes32) public claimsIdHashToAssertionId;
+    mapping(bytes32 => bytes32) public claimsAssertionIdToIdHash;
+    mapping(bytes32 => uint256) public verifiedClaims;
 
     bytes32 public immutable defaultIdentifier;
-    OptimisticOracleV3Interface oo;
+    OptimisticOracleV3Interface _oo;
+    uint64 public livenessOfAssertion = 60*60*24*365;
 
-    event DataAsserted(uint256 id, uint256 ipfsHash, address indexed asserter, bytes32 assertionId);
+    event DataAsserted(bytes32 id, bytes32 ipfsHash, address indexed asserter, bytes32 assertionId);
 
     constructor(address _optimisticOracleV3){
-        oo = OptimisticOracleV3Interface(_optimisticOracleV3);
-        defaultIdentifier = oo.defaultIdentifier();
+        _oo = OptimisticOracleV3Interface(_optimisticOracleV3);
+        defaultIdentifier = _oo.defaultIdentifier();
     }
 
-    function testCall() public pure returns (uint256){
-        return 42;
+    // Start a Will, indicating the beneficiaries and the splits.
+    function initWill(bytes32 idHash, address safeAddress, address[] memory beneficiaries, uint256[] memory shares) public returns(address){
+        DethSafeModule newContract = new DethSafeModule(safeAddress, msg.sender, beneficiaries, shares);
+        willRegister[idHash] = address(newContract);
+        return address(newContract);
     }
 
-    // TODO bytes32
-    function initWill(uint256 id) public {
-        registration[id] = 1;
-    }
-
+    // Get minimum number of tokens needed as a bond to start a claim with UMA optimistic oracles
     function getMinimumBondForToken(address tokenAddress) public view returns (uint256){
-        return oo.getMinimumBond(address(tokenAddress));
+        return _oo.getMinimumBond(address(tokenAddress));
     }
 
-    function startClaimWithMinBond(uint256 id, uint256 ipfsHash, address tokenAddress) public payable{
-        require (registration[id]!=0, "hashedId not registered");
+    // Start a claim with minimum amount of token bonds
+    function startClaimWithMinBond(bytes32 idHash, string memory ipfsLink, address tokenAddress) public payable{
+        require (willRegister[idHash]!=address(0), "idHash not registered");
 
-        uint256 bond = oo.getMinimumBond(address(tokenAddress));
+        uint256 bond = _oo.getMinimumBond(address(tokenAddress));
         IERC20(tokenAddress).transferFrom(msg.sender, address(this), bond);
-        IERC20(tokenAddress).approve(address(oo), bond);
+        IERC20(tokenAddress).approve(address(_oo), bond);
 
         //TODO real ids and hashes
-        bytes32 assertionId = oo.assertTruth(
+        bytes32 assertionId = _oo.assertTruth(
             abi.encodePacked(
-                "CLAIM: File in IPFS hash 0x",
-                ClaimData.toUtf8Bytes(bytes32(ipfsHash)),
+                "CLAIM: File in IPFS link ",
+                (ipfsLink),
                 " proves the death of a person who fulfills the hash 0x",
-                ClaimData.toUtf8Bytes(bytes32(id)),
+                ClaimData.toUtf8Bytes(idHash),
                 " with asserter: 0x",
                 ClaimData.toUtf8BytesAddress(msg.sender),
                 " at timestamp: ",
@@ -61,38 +62,58 @@ contract DETH {
             msg.sender, //asserter
             address(this), //callbackRecipient
             address(0), // escalationManager.
-            60*60*24*7, //liveness
+            livenessOfAssertion, //liveness
             IERC20(tokenAddress), //ERC20 address for bond
             bond, //amount
             defaultIdentifier, //defaultIdentifier
             bytes32(0) // domainId.
         );
 
-        claims[id] = assertionId;
-        claimsAssertionIdToId[assertionId] = id;
+        claimsIdHashToAssertionId[idHash] = assertionId;
+        claimsAssertionIdToIdHash[assertionId] = idHash;
 
-        emit DataAsserted(id, ipfsHash, msg.sender, assertionId);
+        emit DataAsserted(idHash, stringToBytes32(ipfsLink), msg.sender, assertionId);
     }
 
     // OptimisticOracleV3 resolve callback.
     function assertionResolvedCallback(bytes32 assertionId, bool assertedTruthfully) public {
-        require(msg.sender == address(oo));
+        require(msg.sender == address(_oo));
         // If the assertion was true, then the data assertion is resolved.
         if (assertedTruthfully) {
-            verifiedClaims[claimsAssertionIdToId[assertionId]] = 1;
+            verifiedClaims[claimsAssertionIdToIdHash[assertionId]] = 1;
         }
+    }
 
-        // SPLIT FUNDS
+    // Distributes the ETH of the safe (using the safe module, after the claim has been verified)
+    function distributeETH(bytes32 idHash) public{
+        require (verifiedClaims[idHash] == 1, "Claim not verified");
+        DethSafeModule(willRegister[idHash]).distributeETH();
+    }
 
-        //     assertionsData[assertionId].resolved = true;
-        //     DataAssertion memory dataAssertion = assertionsData[assertionId];
-        //     emit DataAssertionResolved(dataAssertion.dataId, dataAssertion.data, dataAssertion.asserter, assertionId);
-        //     // Else delete the data assertion if it was false to save gas.
-        // } else delete assertionsData[assertionId];
+    // Same but for tokens
+    function distributeTokens(bytes32 idHash, address tokenAddress) public{
+        require (verifiedClaims[idHash] == 1, "Claim not verified");
+        DethSafeModule(willRegister[idHash]).distributeTokens(tokenAddress);
     }
 
     // If assertion is disputed, do nothing and wait for resolution.
     // This OptimisticOracleV3 callback function needs to be defined so the OOv3 doesn't revert when it tries to call it.
     function assertionDisputedCallback(bytes32 assertionId) public {}
 
+    // Truncate string to bytes32
+    function stringToBytes32(string memory s) public pure returns (bytes32) {
+        bytes memory stringBytes = bytes(s);
+
+        if (stringBytes.length > 32) {
+            assembly {
+                mstore(stringBytes, 32)
+            }
+        }
+
+        bytes32 result;
+        assembly {
+            result := mload(add(stringBytes, 32))
+        }
+        return result;
+    }
 }
