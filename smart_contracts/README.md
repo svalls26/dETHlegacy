@@ -1,18 +1,18 @@
 ## dETH Legacy Smart contracts
 
 
-Install dependencies:
+Install dependencies (I had issues with the UMA core dependencies with forge, so had to use NPM):
 ```
 forge install
 npm install
 ```
 
+Also, It is important to use https://github.com/OpenZeppelin/openzeppelin-contracts@d00acef as there are incompatibilities with solidity versions with the last UMA and openzeppelin-contracts releases when combining them.
+
 Compile contracts:
 ```
 forge build 
 ```
-
-We use both NPM and forge, because I could not find a way to forge install UMA dependencies (To be checked)
 
 For Goerli in local blockchain:
 ```
