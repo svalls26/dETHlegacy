@@ -539,13 +539,15 @@ function App() {
         <div className="mt-4"></div>
 
         <div className="bg-base-300 w-full px-8 py-4 flex justify-center items-center">
-          <input
-            type="text"
-            value={textInputValue}
-            onChange={handleTextInputChange}
-            placeholder="Enter Name%Surname%last4IDdigits%Nationality"
-            className="input input-primary focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2rem] min-h-[2rem] px-4 border mr-2 w-2/3 font-medium placeholder:text-accent/50 text-gray-400"
-          />
+          <div className="tooltip w-6/12" data-tip="Format: Name%Surname%last4IDdigits%Nationality">
+            <input
+              type="text"
+              value={textInputValue}
+              onChange={handleTextInputChange}
+              placeholder="Unique Hash"
+              className="input input-primary focus:outline-none focus:bg-transparent focus:text-gray-400 h-[2rem] min-h-[2rem] px-4 border mr-2 w-2/3 font-medium placeholder:text-accent/50 text-gray-400"
+            />
+          </div>
           <button
             className={`btn ${loading ? "btn-loading" : "btn-primary"}`}
             onClick={() => {
