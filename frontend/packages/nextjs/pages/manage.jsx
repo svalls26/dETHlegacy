@@ -6,7 +6,7 @@ import { Address } from "~~/components/scaffold-eth";
 import { IntegerInput } from "~~/components/scaffold-eth";
 import Web3 from 'web3';
 
-const contractAddress = '0x0307dA205e77078E723520f78fC875Dc351354e0';
+const contractAddress = '0x9c839e5f2843fbd24b07832563a3e457daa8c37f';
 const abi = [
   {
     "inputs": [
@@ -24,15 +24,15 @@ const abi = [
     "inputs": [
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "id",
-        "type": "uint256"
+        "type": "bytes32"
       },
       {
         "indexed": false,
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "ipfsHash",
-        "type": "uint256"
+        "type": "bytes32"
       },
       {
         "indexed": true,
@@ -84,17 +84,36 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
+        "internalType": "bytes32",
         "name": "",
-        "type": "uint256"
+        "type": "bytes32"
       }
     ],
-    "name": "claims",
+    "name": "claimsAssertionIdToIdHash",
     "outputs": [
       {
-        "internalType": "bool",
+        "internalType": "bytes32",
         "name": "",
-        "type": "bool"
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "claimsIdHashToAssertionId",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -111,6 +130,37 @@ const abi = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "distributeETH",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "distributeTokens",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -135,30 +185,45 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "safeAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address[]",
+        "name": "beneficiaries",
+        "type": "address[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "shares",
+        "type": "uint256[]"
       }
     ],
     "name": "initWill",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "registration",
+    "inputs": [],
+    "name": "livenessOfAssertion",
     "outputs": [
       {
-        "internalType": "uint256",
+        "internalType": "uint64",
         "name": "",
-        "type": "uint256"
+        "type": "uint64"
       }
     ],
     "stateMutability": "view",
@@ -167,14 +232,14 @@ const abi = [
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "id",
-        "type": "uint256"
+        "internalType": "bytes32",
+        "name": "idHash",
+        "type": "bytes32"
       },
       {
-        "internalType": "uint256",
-        "name": "ipfsHash",
-        "type": "uint256"
+        "internalType": "string",
+        "name": "ipfsLink",
+        "type": "string"
       },
       {
         "internalType": "address",
@@ -188,8 +253,33 @@ const abi = [
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "testCall",
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "s",
+        "type": "string"
+      }
+    ],
+    "name": "stringToBytes32",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "verifiedClaims",
     "outputs": [
       {
         "internalType": "uint256",
@@ -197,7 +287,26 @@ const abi = [
         "type": "uint256"
       }
     ],
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "willRegister",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   }
 ];
@@ -215,8 +324,8 @@ function App() {
   const [account, setAccount] = useState(null);
   const [transactionStatus, setTransactionStatus] = useState(null);
   const [textInputValue, setTextInputValue] = useState(''); 
-
   const [selectedOption, setSelectedOption] = useState("");
+  const [id_val, setIdValue] = useState('')
   const [transactionList, setTransactionList] = useState([]);
 
   const handleRadioChange = event => {
@@ -270,8 +379,13 @@ function App() {
   
       // Get the parameters for initWill
       const id = web3.utils.asciiToHex(textInputValue);
+      const idVal= web3.utils.padLeft(id, 64);
+      setIdValue(idVal);
+
       console.log("id");
       console.log(id);
+      console.log("id_val", id_val)
+      console.log("idVal", idVal)
       console.log("claim_address");
       console.log(claim_address);
   
@@ -279,7 +393,7 @@ function App() {
       const transaction = await web3Instance.eth.sendTransaction({
         to: contractAddress,
         from: account,
-        data: erc20.methods.initWill(id, claim_address).encodeABI(), // Pass claim_address here
+        data: erc20.methods.initWill(idVal, "0xE60dBa66B85E10E7Fd18a67a6859E241A243950e", [claim_address, claim_address], [5,2]).encodeABI(), // Pass claim_address here
       });
   
       // Wait for the transaction to be mined
@@ -443,7 +557,7 @@ function App() {
             {transactionStatus.includes('successful') && (
               <>
                 <p>Transaction Successful!</p>
-                <p>{`Don't forget your Legacy Hash: ${web3.utils.asciiToHex(textInputValue)}`}</p>
+                <p>{`Don't forget your Legacy Hash: ${id_val}`}</p>
               </>
             )}
           </div>
