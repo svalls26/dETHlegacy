@@ -16,7 +16,16 @@ const nextConfig = {
     return config;
   },
   images: {
+    dangerouslyAllowSVG: true,
     domains: ["skywalker.infura-ipfs.io"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "noun-api.com",
+        port: "",
+        pathname: "/beta/**",
+      },
+    ],
   },
 };
 
